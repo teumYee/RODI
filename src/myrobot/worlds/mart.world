@@ -3624,9 +3624,12 @@
       <pose>-41.2172 -26.9007 0 0 -0 0</pose>
     </model>
     <model name='person_walking_0'>
+      <static>true</static>
+      <scale>0.6 0.6 0.6</scale>
+
       <link name='link'>
         <inertial>
-          <pose>0 0 0.95 0 -0 0</pose>
+          <pose>0 0 0.57 0 -0 0</pose>
           <mass>80</mass>
           <inertia>
             <ixx>27.82</ixx>
@@ -3637,61 +3640,60 @@
             <izz>4.57</izz>
           </inertia>
         </inertial>
+
         <collision name='bottom'>
-          <pose>0 0 0.01 0 -0 0</pose>
+          <pose>0 0 0.006 0 -0 0</pose>
           <geometry>
             <box>
-              <size>0.35 0.75 0.02</size>
+              <size>0.21 0.45 0.012</size>
             </box>
           </geometry>
           <max_contacts>10</max_contacts>
           <surface>
-            <contact>
-              <ode/>
-            </contact>
+            <contact><ode/></contact>
             <bounce/>
             <friction>
-              <torsional>
-                <ode/>
-              </torsional>
+              <torsional><ode/></torsional>
               <ode/>
             </friction>
           </surface>
         </collision>
+
         <collision name='person'>
-          <pose>0 0 -0.02 0 -0 0</pose>
+          <pose>0 0 -0.012 0 -0 0</pose>
           <geometry>
             <mesh>
               <uri>model://person_walking/meshes/walking.dae</uri>
+              <scale>0.6 0.6 0.6</scale>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
           <surface>
-            <contact>
-              <ode/>
-            </contact>
+            <contact><ode/></contact>
             <bounce/>
             <friction>
-              <torsional>
-                <ode/>
-              </torsional>
+              <torsional><ode/></torsional>
               <ode/>
             </friction>
           </surface>
         </collision>
+
         <visual name='visual'>
-          <pose>0 0 -0.02 0 -0 0</pose>
+          <pose>0 0 -0.012 0 -0 0</pose>
           <geometry>
             <mesh>
               <uri>model://person_walking/meshes/walking.dae</uri>
+              <scale>0.6 0.6 0.6</scale>
             </mesh>
           </geometry>
         </visual>
+
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-      <pose>-21.8493 -31.2891 0 0 -0 0</pose>
+      
+      <pose>31.0774 -9.27441 0 0 0 0</pose>
     </model>
     <model name='euro_pallet'>
       <link name='link'>
@@ -8264,13 +8266,11 @@
         </link>
       </model>
       <model name='person_walking_0'>
-        <pose>31.0774 -9.27441 -0 0 -1e-06 0.000212</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose>31.0774 -9.27441 -0 0 -1e-06 0.000212</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-1.27486 -0.004437 -0.494449 0.004576 -1.34196 0.000398</acceleration>
-          <wrench>-101.989 -0.354958 -39.5559 0 -0 0</wrench>
+        <pose>31.0774 -9.27441 0 0 0 0</pose> <scale>0.6 0.6 0.6</scale> <link name='link'>
+          <pose>31.0774 -9.27441 0 0 0 0</pose>
+          <velocity>0 0 0 0 0 0</velocity>
+          <acceleration>0 0 0 0 0 0</acceleration>
+          <wrench>0 0 0 0 0 0</wrench>
         </link>
       </model>
       <model name='rescue_randy'>

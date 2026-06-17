@@ -25,9 +25,10 @@ endif()
 
 install(DIRECTORY
   launch
+  urdf
   worlds
   models
-  urdf
+  maps
+  config
   DESTINATION share/${PROJECT_NAME}/
 )
-ament_package()

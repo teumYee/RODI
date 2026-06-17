@@ -121,7 +121,9 @@
   <gazebo>
     <plugin name="my_robot_diff_drive" filename="libgazebo_ros_diff_drive.so">
       <ros>
-        </ros>
+        <remapping>odom:=odom</remapping>
+        <namespace>/</namespace>
+      </ros>
       <update_rate>30</update_rate>
       <left_joint>wheel_left_joint</left_joint>
       <right_joint>wheel_right_joint</right_joint>
@@ -131,7 +133,7 @@
       <max_wheel_acceleration>1.0</max_wheel_acceleration>
       <command_topic>cmd_vel</command_topic>
       <publish_odom>true</publish_odom>
-      <publish_odom_tf>true</publish_odom_tf>
+      <publish_odom_tf>false</publish_odom_tf> 
       <publish_wheel_tf>false</publish_wheel_tf>
       <odometry_topic>odom</odometry_topic>
       <odometry_frame>odom</odometry_frame>
@@ -168,5 +170,43 @@
       </plugin>
     </sensor>
   </gazebo>
+<link name="camera_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
 
+  <joint name="camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0.1 0.0 0.2" rpy="0 0 0"/> 
+  </joint>
+
+  <gazebo reference="camera_link">
+    <sensor type="camera" name="robot_camera">
+    <material>Gazebo/Blue</material> <sensor type="camera" name="robot_camera">
+      <update_rate>30.0</update_rate> <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov> <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>myrobot/camera</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
 </robot>
