@@ -1,5 +1,11 @@
 <sdf version='1.7'>
   <world name='mart_world'>
+    <plugin name='gazebo_ros_state' filename='libgazebo_ros_state.so'>
+      <ros>
+        <namespace>/gazebo</namespace>
+      </ros>
+      <update_rate>5.0</update_rate>
+    </plugin>
     <physics type='ode'>
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1</real_time_factor>
@@ -108,7 +114,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/xinyusheng/models/factory_wall/2/files/meshes/factory_wall.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/xinyusheng/models/factory_wall/2/meshes/factory_wall.obj</uri>
             </mesh>
           </geometry>
           <material>
@@ -172,7 +178,7 @@
     </model>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>6.36428 -0.416719 62.2107 -0 1.39789 2.92997</pose>
+        <pose>7.81391 2.77054 22.1406 -0 1.39789 2.92997</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -357,7 +363,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/xinyusheng/models/factory_wall/2/files/meshes/factory_wall.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/xinyusheng/models/factory_wall/2/meshes/factory_wall.obj</uri>
             </mesh>
           </geometry>
           <material>
@@ -379,7 +385,7 @@
         <visual name='v1'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/ghaithmhamdi/models/delivery_artistic_picture/1/files/delivery_artistic_picture.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/ghaithmhamdi/models/delivery_artistic_picture/1/meshes/delivery_artistic_picture.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -518,7 +524,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>https://fuel.ignitionrobotics.org/1.0/MovAi/models/pallet/tip/files/meshes/pallet.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/movai/models/pallet/tip/meshes/pallet.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -527,7 +533,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>https://fuel.ignitionrobotics.org/1.0/kittaphat/models/pallet_box/1/files/meshes/boxes.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/kittaphat/models/pallet_box/1/meshes/boxes.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -551,10 +557,9 @@
         </inertial>
         <collision name='collision'>
           <geometry>
-            <mesh>
-              <uri>file://models/aws_robomaker_retail_AirConditionerC_01/meshes/aws_AirConditionerC_01_collision.DAE</uri>
-              <scale>1 1 1</scale>
-            </mesh>
+            <box>
+              <size>0.9 0.3 1.8</size>
+            </box>
           </geometry>
           <max_contacts>10</max_contacts>
           <surface>
@@ -572,10 +577,14 @@
         </collision>
         <visual name='visual'>
           <geometry>
-            <mesh>
-              <uri>file://models/aws_robomaker_retail_AirConditionerC_01/meshes/aws_AirConditionerC_01_visual.DAE</uri>
-            </mesh>
+            <box>
+              <size>0.9 0.3 1.8</size>
+            </box>
           </geometry>
+          <material>
+            <ambient>0.85 0.85 0.9 1</ambient>
+            <diffuse>0.85 0.85 0.9 1</diffuse>
+          </material>
           <meta>
             <layer>3</layer>
           </meta>
@@ -634,7 +643,7 @@
           <pose>0 0 -0.15 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/kjsrobotics/models/cardboard box/1/files/meshes/cardboard_box.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/kjsrobotics/models/cardboard box/1/meshes/cardboard_box.dae</uri>
               <scale>1.25932 1.00745 0.755591</scale>
             </mesh>
           </geometry>
@@ -651,14 +660,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/mustafaemirtan/models/maze1/5/files/meshes/model.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/mustafaemirtan/models/maze1/5/meshes/model.dae</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/mustafaemirtan/models/maze1/5/files/meshes/model.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/mustafaemirtan/models/maze1/5/meshes/model.dae</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -684,10 +693,14 @@
       <link name='base_link'>
         <visual name='base_visual'>
           <geometry>
-            <mesh>
-              <uri>/home/teumteumee/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/hand_cart/1/base_visual.glb</uri>
-            </mesh>
+            <box>
+              <size>0.6 0.4 1.1</size>
+            </box>
           </geometry>
+          <material>
+            <ambient>0.6 0.4 0.2 1</ambient>
+            <diffuse>0.6 0.4 0.2 1</diffuse>
+          </material>
         </visual>
         <collision name='cart031_collider_cylinder'>
           <pose>-0.389062 -0.75487 0.25 3.14159 1.57079 3.14159</pose>
@@ -1015,14 +1028,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/trolleybox1/2/files/meshes/TrolleyBox1.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/trolleybox1/2/meshes/TrolleyBox1.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/trolleybox1/2/files/meshes/TrolleyBox1_Col.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/trolleybox1/2/meshes/TrolleyBox1_Col.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -1051,14 +1064,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/mopcart1/2/files/meshes/MopCart1.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/mopcart1/2/meshes/MopCart1.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/mopcart1/2/files/meshes/MopCart1.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/mopcart1/2/meshes/MopCart1.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -2754,13 +2767,6 @@
           <material>
             <diffuse>1 1 1 1</diffuse>
             <specular>1 1 1 1</specular>
-            <pbr>
-              <metal>
-                <albedo_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Floor_Albedo.jpg</albedo_map>
-                <normal_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Floor_Normal.jpg</normal_map>
-                <roughness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Floor_Roughness.jpg</roughness_map>
-              </metal>
-            </pbr>
             <script>
               <uri>materials/scripts</uri>
               <uri>materials/textures</uri>
@@ -2782,14 +2788,6 @@
           <material>
             <diffuse>1 1 1 1</diffuse>
             <specular>1 1 1 1</specular>
-            <pbr>
-              <metal>
-                <albedo_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/MetalBrushed_Albedo.jpg</albedo_map>
-                <normal_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/MetalBrushed_Normal.jpg</normal_map>
-                <roughness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/MetalBrushed_Roughness.jpg</roughness_map>
-                <metalness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/MetalBrushed_Metalness.jpg</metalness_map>
-              </metal>
-            </pbr>
             <script>
               <uri>materials/scripts</uri>
               <uri>materials/textures</uri>
@@ -2811,14 +2809,6 @@
           <material>
             <diffuse>1 1 1 1</diffuse>
             <specular>1 1 1 1</specular>
-            <pbr>
-              <metal>
-                <albedo_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/ConcreteTiles_Albedo.jpg</albedo_map>
-                <normal_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/ConcreteTiles_Normal.jpg</normal_map>
-                <roughness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/ConcreteTiles_Roughness.jpg</roughness_map>
-                <metalness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/ConcreteTiles_Metalness.jpg</metalness_map>
-              </metal>
-            </pbr>
             <script>
               <uri>materials/scripts</uri>
               <uri>materials/textures</uri>
@@ -2840,14 +2830,6 @@
           <material>
             <diffuse>1 1 1 1</diffuse>
             <specular>1 1 1 1</specular>
-            <pbr>
-              <metal>
-                <albedo_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Wall_Albedo.jpg</albedo_map>
-                <normal_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Wall_Normal.jpg</normal_map>
-                <roughness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Wall_Roughness.jpg</roughness_map>
-                <metalness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Wall_Metalness.jpg</metalness_map>
-              </metal>
-            </pbr>
             <script>
               <uri>materials/scripts</uri>
               <uri>materials/textures</uri>
@@ -2869,14 +2851,6 @@
           <material>
             <diffuse>1 1 1 1</diffuse>
             <specular>1 1 1 1</specular>
-            <pbr>
-              <metal>
-                <albedo_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Concrete_Tunnel_Albedo.jpg</albedo_map>
-                <normal_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Concrete_Tunnel_Normal.jpg</normal_map>
-                <roughness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Concrete_Tunnel_Roughness.jpg</roughness_map>
-                <metalness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Concrete_Tunnel_Metalness.jpg</metalness_map>
-              </metal>
-            </pbr>
             <script>
               <uri>materials/scripts</uri>
               <uri>materials/textures</uri>
@@ -2898,14 +2872,6 @@
           <material>
             <diffuse>1 1 1 1</diffuse>
             <specular>1 1 1 1</specular>
-            <pbr>
-              <metal>
-                <albedo_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Shaft_Albedo.jpg</albedo_map>
-                <normal_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Shaft_Normal.jpg</normal_map>
-                <roughness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Shaft_Roughness.jpg</roughness_map>
-                <metalness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Shaft_Metalness.jpg</metalness_map>
-              </metal>
-            </pbr>
             <script>
               <uri>materials/scripts</uri>
               <uri>materials/textures</uri>
@@ -2939,14 +2905,6 @@
           <material>
             <diffuse>1 1 1 1</diffuse>
             <specular>1 1 1 1</specular>
-            <pbr>
-              <metal>
-                <albedo_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Light_Albedo.jpg</albedo_map>
-                <normal_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Light_Normal.jpg</normal_map>
-                <roughness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Light_Roughness.jpg</roughness_map>
-                <metalness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Light_Metalness.jpg</metalness_map>
-              </metal>
-            </pbr>
             <script>
               <uri>materials/scripts</uri>
               <uri>materials/textures</uri>
@@ -2968,14 +2926,6 @@
           <material>
             <diffuse>1 1 1 1</diffuse>
             <specular>1 1 1 1</specular>
-            <pbr>
-              <metal>
-                <albedo_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Rail_Albedo.jpg</albedo_map>
-                <normal_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Rail_Normal.jpg</normal_map>
-                <roughness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Rail_Roughness.jpg</roughness_map>
-                <metalness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/Rail_Metalness.jpg</metalness_map>
-              </metal>
-            </pbr>
             <script>
               <uri>materials/scripts</uri>
               <uri>materials/textures</uri>
@@ -2997,14 +2947,6 @@
           <material>
             <diffuse>1 1 1 1</diffuse>
             <specular>1 1 1 1</specular>
-            <pbr>
-              <metal>
-                <albedo_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/ThirdRail_Albedo.jpg</albedo_map>
-                <normal_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/ThirdRail_Normal.jpg</normal_map>
-                <roughness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/ThirdRail_Roughness.jpg</roughness_map>
-                <metalness_map>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Urban Platform/tip/files/materials/textures/ThirdRail_Metalness.jpg</metalness_map>
-              </metal>
-            </pbr>
             <script>
               <uri>materials/scripts</uri>
               <uri>materials/textures</uri>
@@ -3158,7 +3100,7 @@
           <pose>0 0 -0.15 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/kjsrobotics/models/cardboard box/1/files/meshes/cardboard_box.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/kjsrobotics/models/cardboard box/1/meshes/cardboard_box.dae</uri>
               <scale>1.25932 1.00745 0.755591</scale>
             </mesh>
           </geometry>
@@ -3400,7 +3342,7 @@
           <pose>0 0 0.006 0 -0 0</pose>
           <geometry>
             <box>
-              <size>2.70062 5.78703 0.15432</size>
+              <size>4.50103 9.64505 0.2572</size>
             </box>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -3474,7 +3416,7 @@
           <pose>0 0 0.05 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/will0993/models/euro pallet/1/files/meshes/pallet.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/will0993/models/euro pallet/1/meshes/pallet.dae</uri>
               <scale>0.1 0.1 0.1</scale>
             </mesh>
           </geometry>
@@ -3496,7 +3438,7 @@
           <pose>0 0 0.05 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/will0993/models/euro pallet/1/files/meshes/pallet.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/will0993/models/euro pallet/1/meshes/pallet.dae</uri>
               <scale>0.1 0.1 0.1</scale>
             </mesh>
           </geometry>
@@ -3514,14 +3456,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/suitcase1/2/files/meshes/Suitcase1.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/suitcase1/2/meshes/Suitcase1.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/suitcase1/2/files/meshes/Suitcase1_Col.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/suitcase1/2/meshes/Suitcase1_Col.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -3551,14 +3493,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/informationcounter/2/files/meshes/InformationCounter.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/informationcounter/2/meshes/InformationCounter.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/informationcounter/2/files/meshes/InformationCounter_Col.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/informationcounter/2/meshes/InformationCounter_Col.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -3588,14 +3530,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/headphonesrack2/2/files/meshes/HeadphonesRack2.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/headphonesrack2/2/meshes/HeadphonesRack2.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/headphonesrack2/2/files/meshes/HeadphonesRack2_Col.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/headphonesrack2/2/meshes/HeadphonesRack2_Col.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -3625,14 +3567,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/suitcase2h/2/files/meshes/Suitcase2H.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/suitcase2h/2/meshes/Suitcase2H.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/suitcase2h/2/files/meshes/Suitcase2H_Col.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/suitcase2h/2/meshes/Suitcase2H_Col.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -3662,14 +3604,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/headphonesrack1/2/files/meshes/HeadphonesRack1.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/headphonesrack1/2/meshes/HeadphonesRack1.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/headphonesrack1/2/files/meshes/HeadphonesRack1_Col.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/headphonesrack1/2/meshes/HeadphonesRack1_Col.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -3698,14 +3640,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/mopcart2/2/files/meshes/MopCart2.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/mopcart2/2/meshes/MopCart2.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/mopcart2/2/files/meshes/MopCart2.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/mopcart2/2/meshes/MopCart2.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -3747,14 +3689,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/conftable/3/files/meshes/ConfTable.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/conftable/3/meshes/ConfTable.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/conftable/3/files/meshes/ConfTable_Col.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/conftable/3/meshes/ConfTable_Col.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -3783,14 +3725,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/vendingmachine/3/files/meshes/VendingMachine.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/vendingmachine/3/meshes/VendingMachine.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/vendingmachine/3/files/meshes/VendingMachine.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/vendingmachine/3/meshes/VendingMachine.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -4981,7 +4923,7 @@
           <geometry>
             <mesh>
               <scale>0.2 0.3 0.3</scale>
-              <uri>/home/teumteumee/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -5022,7 +4964,7 @@
           <geometry>
             <mesh>
               <scale>0.2 0.3 0.3</scale>
-              <uri>/home/teumteumee/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -5031,267 +4973,6 @@
         <kinematic>0</kinematic>
       </link>
       <static>1</static>
-    </model>
-    <model name='my_robot'>
-      <link name='base_footprint'>
-        <inertial>
-          <pose>-0.064 0 0.062754 0 -0 0</pose>
-          <mass>1.486</mass>
-          <inertia>
-            <ixx>0.0103221</ixx>
-            <ixy>0</ixy>
-            <ixz>-8.67362e-19</ixz>
-            <iyy>0.0117821</iyy>
-            <iyz>0</iyz>
-            <izz>0.01245</izz>
-          </inertia>
-        </inertial>
-        <collision name='base_footprint_fixed_joint_lump__base_link_collision'>
-          <pose>-0.064 0 0.057 0 -0 0</pose>
-          <geometry>
-            <box>
-              <size>0.266 0.266 0.094</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <collision name='base_footprint_fixed_joint_lump__base_scan_collision_1'>
-          <pose>-0.064 0 0.132 0 -0 0</pose>
-          <geometry>
-            <cylinder>
-              <length>0.0315</length>
-              <radius>0.055</radius>
-            </cylinder>
-          </geometry>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <friction>
-              <ode/>
-              <torsional>
-                <ode/>
-              </torsional>
-            </friction>
-            <bounce/>
-          </surface>
-          <max_contacts>10</max_contacts>
-        </collision>
-        <visual name='base_footprint_fixed_joint_lump__base_link_visual'>
-          <pose>-0.064 0 0.057 0 -0 0</pose>
-          <geometry>
-            <box>
-              <size>0.266 0.266 0.094</size>
-            </box>
-          </geometry>
-        </visual>
-        <visual name='base_footprint_fixed_joint_lump__base_scan_visual_1'>
-          <pose>-0.064 0 0.132 0 -0 0</pose>
-          <geometry>
-            <cylinder>
-              <length>0.0315</length>
-              <radius>0.055</radius>
-            </cylinder>
-          </geometry>
-        </visual>
-        <sensor name='my_robot_lds' type='ray'>
-          <always_on>1</always_on>
-          <visualize>1</visualize>
-          <update_rate>5</update_rate>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>360</samples>
-                <resolution>1</resolution>
-                <min_angle>0</min_angle>
-                <max_angle>6.28319</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>1</samples>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.12</min>
-              <max>3.5</max>
-              <resolution>0.015</resolution>
-            </range>
-          </ray>
-          <plugin name='my_robot_laserscan' filename='libgazebo_ros_ray_sensor.so'>
-            <ros>
-              <remapping>~/out:=scan</remapping>
-            </ros>
-            <output_type>sensor_msgs/LaserScan</output_type>
-            <frame_name>base_scan</frame_name>
-          </plugin>
-          <pose>-0.064 0 0.132 0 -0 0</pose>
-        </sensor>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <joint name='wheel_left_joint' type='revolute'>
-        <pose relative_to='base_footprint'>0 0.144 0.033 -1.5708 0 0</pose>
-        <parent>base_footprint</parent>
-        <child>wheel_left_link</child>
-        <axis>
-          <xyz>0 0 1</xyz>
-          <limit>
-            <lower>-1e+16</lower>
-            <upper>1e+16</upper>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-          </dynamics>
-        </axis>
-      </joint>
-      <link name='wheel_left_link'>
-        <pose relative_to='wheel_left_joint'>0 0 0 0 -0 0</pose>
-        <inertial>
-          <pose>0 0 0 0 -0 0</pose>
-          <mass>0.028</mass>
-          <inertia>
-            <ixx>1.117e-05</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>1.119e-05</iyy>
-            <iyz>0</iyz>
-            <izz>2.071e-05</izz>
-          </inertia>
-        </inertial>
-        <collision name='wheel_left_link_collision'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <cylinder>
-              <length>0.018</length>
-              <radius>0.033</radius>
-            </cylinder>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='wheel_left_link_visual'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <cylinder>
-              <length>0.018</length>
-              <radius>0.033</radius>
-            </cylinder>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <joint name='wheel_right_joint' type='revolute'>
-        <pose relative_to='base_footprint'>0 -0.144 0.033 -1.5708 0 0</pose>
-        <parent>base_footprint</parent>
-        <child>wheel_right_link</child>
-        <axis>
-          <xyz>0 0 1</xyz>
-          <limit>
-            <lower>-1e+16</lower>
-            <upper>1e+16</upper>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-          </dynamics>
-        </axis>
-      </joint>
-      <link name='wheel_right_link'>
-        <pose relative_to='wheel_right_joint'>0 0 0 0 -0 0</pose>
-        <inertial>
-          <pose>0 0 0 0 -0 0</pose>
-          <mass>0.028</mass>
-          <inertia>
-            <ixx>1.117e-05</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>1.119e-05</iyy>
-            <iyz>0</iyz>
-            <izz>2.071e-05</izz>
-          </inertia>
-        </inertial>
-        <collision name='wheel_right_link_collision'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <cylinder>
-              <length>0.018</length>
-              <radius>0.033</radius>
-            </cylinder>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='wheel_right_link_visual'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <cylinder>
-              <length>0.018</length>
-              <radius>0.033</radius>
-            </cylinder>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <static>0</static>
-      <plugin name='my_robot_diff_drive' filename='libgazebo_ros_diff_drive.so'>
-        <ros/>
-        <update_rate>30</update_rate>
-        <left_joint>wheel_left_joint</left_joint>
-        <right_joint>wheel_right_joint</right_joint>
-        <wheel_separation>0.287</wheel_separation>
-        <wheel_diameter>0.066</wheel_diameter>
-        <max_wheel_torque>20</max_wheel_torque>
-        <max_wheel_acceleration>1.0</max_wheel_acceleration>
-        <command_topic>cmd_vel</command_topic>
-        <publish_odom>1</publish_odom>
-        <publish_odom_tf>1</publish_odom_tf>
-        <publish_wheel_tf>0</publish_wheel_tf>
-        <odometry_topic>odom</odometry_topic>
-        <odometry_frame>odom</odometry_frame>
-        <robot_base_frame>base_footprint</robot_base_frame>
-      </plugin>
-      <pose>25.811 -11.9989 0.007827 0 -0 0</pose>
     </model>
     <model name='pallet_box_mobile_clone'>
       <pose>-5.79372 -12.8265 -0.005009 1.2e-05 -7e-06 0.550216</pose>
@@ -5423,7 +5104,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>https://fuel.ignitionrobotics.org/1.0/MovAi/models/pallet/tip/files/meshes/pallet.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/movai/models/pallet/tip/meshes/pallet.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -5432,7 +5113,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>https://fuel.ignitionrobotics.org/1.0/kittaphat/models/pallet_box/1/files/meshes/boxes.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/kittaphat/models/pallet_box/1/meshes/boxes.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -5455,14 +5136,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/mopcart2/2/files/meshes/MopCart2.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/mopcart2/2/meshes/MopCart2.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/mopcart2/2/files/meshes/MopCart2.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/mopcart2/2/meshes/MopCart2.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -5502,11 +5183,14 @@
       <link name='base_link'>
         <visual name='visual'>
           <geometry>
-            <mesh>
-              <scale>0.1 0.1 0.1</scale>
-              <uri>/home/teumteumee/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/foldable_chair/3/mesh/foldable_chair.dae</uri>
-            </mesh>
+            <box>
+              <size>0.5 0.5 0.8</size>
+            </box>
           </geometry>
+          <material>
+            <ambient>0.4 0.3 0.2 1</ambient>
+            <diffuse>0.4 0.3 0.2 1</diffuse>
+          </material>
         </visual>
         <collision name='collision'>
           <pose>0 0.05 0.4 0 -0 0</pose>
@@ -5542,14 +5226,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/whitecabinet/2/files/meshes/WhiteCabinet.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/whitecabinet/2/meshes/WhiteCabinet.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/whitecabinet/2/files/meshes/WhiteCabinet.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/whitecabinet/2/meshes/WhiteCabinet.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -5579,14 +5263,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/whitecabinet/2/files/meshes/WhiteCabinet.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/whitecabinet/2/meshes/WhiteCabinet.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/whitecabinet/2/files/meshes/WhiteCabinet.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/whitecabinet/2/meshes/WhiteCabinet.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -5616,14 +5300,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/trashbin/2/files/meshes/TrashBin.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/trashbin/2/meshes/TrashBin.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/trashbin/2/files/meshes/TrashBin.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/trashbin/2/meshes/TrashBin.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -5652,14 +5336,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/vendingmachine/3/files/meshes/VendingMachine.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/vendingmachine/3/meshes/VendingMachine.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/vendingmachine/3/files/meshes/VendingMachine.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/vendingmachine/3/meshes/VendingMachine.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -5701,14 +5385,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/foodcourtbenchlong/2/files/meshes/FoodCourtBenchLong.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/foodcourtbenchlong/2/meshes/FoodCourtBenchLong.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/foodcourtbenchlong/2/files/meshes/FoodCourtBenchLong_Col.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/foodcourtbenchlong/2/meshes/FoodCourtBenchLong_Col.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -5738,14 +5422,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/foodcourtbenchlong/2/files/meshes/FoodCourtBenchLong.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/foodcourtbenchlong/2/meshes/FoodCourtBenchLong.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/foodcourtbenchlong/2/files/meshes/FoodCourtBenchLong_Col.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/foodcourtbenchlong/2/meshes/FoodCourtBenchLong_Col.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -5799,7 +5483,7 @@
           <geometry>
             <mesh>
               <scale>0.2 0.3 0.3</scale>
-              <uri>/home/teumteumee/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -5840,7 +5524,7 @@
           <geometry>
             <mesh>
               <scale>0.2 0.3 0.3</scale>
-              <uri>/home/teumteumee/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -5881,7 +5565,7 @@
           <geometry>
             <mesh>
               <scale>0.2 0.3 0.3</scale>
-              <uri>/home/teumteumee/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -5922,7 +5606,7 @@
           <geometry>
             <mesh>
               <scale>0.2 0.3 0.3</scale>
-              <uri>/home/teumteumee/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -5954,7 +5638,7 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>/home/teumteumee/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/fire extinguisher/5/meshes/extinguisher.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/fire extinguisher/5/meshes/extinguisher.dae</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -5974,7 +5658,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>/home/teumteumee/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/fire extinguisher/5/meshes/extinguisher.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/fire extinguisher/5/meshes/extinguisher.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -5991,14 +5675,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/officechairgrey/2/files/meshes/OfficeChairGrey.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/officechairgrey/2/meshes/OfficeChairGrey.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/officechairgrey/2/files/meshes/OfficeChairGrey_Col.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/officechairgrey/2/meshes/OfficeChairGrey_Col.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -6049,7 +5733,7 @@
           <pose>0 0 0.02 0.04 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/teumteumee/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/casual female/4/meshes/casual_female.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/casual female/1/meshes/casual_female.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -6066,14 +5750,14 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/femalevisitor/2/files/meshes/FemaleVisitor.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/femalevisitor/2/meshes/FemaleVisitor.obj</uri>
             </mesh>
           </geometry>
         </visual>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/femalevisitor/2/files/meshes/FemaleVisitor_Col.obj</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/openrobotics/models/femalevisitor/2/meshes/FemaleVisitor_Col.obj</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -6115,7 +5799,7 @@
           <pose>0 0 0.05 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/will0993/models/euro pallet/1/files/meshes/pallet.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/will0993/models/euro pallet/1/meshes/pallet.dae</uri>
               <scale>0.1 0.1 0.1</scale>
             </mesh>
           </geometry>
@@ -6137,7 +5821,7 @@
           <pose>0 0 0.05 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/will0993/models/euro pallet/1/files/meshes/pallet.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/will0993/models/euro pallet/1/meshes/pallet.dae</uri>
               <scale>0.1 0.1 0.1</scale>
             </mesh>
           </geometry>
@@ -6167,7 +5851,7 @@
           <pose>0 0 0.05 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/will0993/models/euro pallet/1/files/meshes/pallet.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/will0993/models/euro pallet/1/meshes/pallet.dae</uri>
               <scale>0.1 0.1 0.1</scale>
             </mesh>
           </geometry>
@@ -6189,7 +5873,7 @@
           <pose>0 0 0.05 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>https://fuel.ignitionrobotics.org/1.0/will0993/models/euro pallet/1/files/meshes/pallet.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/will0993/models/euro pallet/1/meshes/pallet.dae</uri>
               <scale>0.1 0.1 0.1</scale>
             </mesh>
           </geometry>
@@ -6366,7 +6050,7 @@
           <geometry>
             <mesh>
               <scale>0.2 0.3 0.3</scale>
-              <uri>/home/teumteumee/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/ssarkar/models/shelf/1/meshes/shelf_big_movai.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -6776,7 +6460,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>https://fuel.ignitionrobotics.org/1.0/MovAi/models/pallet/tip/files/meshes/pallet.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/movai/models/pallet/tip/meshes/pallet.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -6785,7 +6469,7 @@
           <geometry>
             <mesh>
               <scale>1 1 1</scale>
-              <uri>https://fuel.ignitionrobotics.org/1.0/kittaphat/models/pallet_box/1/files/meshes/boxes.dae</uri>
+              <uri>/home/digurri/.ignition/fuel/fuel.ignitionrobotics.org/kittaphat/models/pallet_box/1/meshes/boxes.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -6873,10 +6557,10 @@
       <pose>31.6318 -11.2819 -0 0 -1e-06 -1.91947</pose>
     </model>
     <state world_name='mart_world'>
-      <sim_time>906 370000000</sim_time>
-      <real_time>993 851578914</real_time>
-      <wall_time>1781761685 160179498</wall_time>
-      <iterations>906370</iterations>
+      <sim_time>1344 710000000</sim_time>
+      <real_time>450 790517189</real_time>
+      <wall_time>1781808083 238846907</wall_time>
+      <iterations>438340</iterations>
       <model name='ConfTable'>
         <pose>-23.765 -11.5616 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -6928,13 +6612,13 @@
         </link>
       </model>
       <model name='Hand_Cart'>
-        <pose>15.5113 -5.1379 1e-06 0 0 -3.5e-05</pose>
+        <pose>15.3442 -4.91568 0.127923 0.165688 -5e-06 0.13304</pose>
         <scale>1 1 1</scale>
         <link name='base_link'>
-          <pose>15.5113 -5.1379 1e-06 0 0 -3.5e-05</pose>
+          <pose>15.3442 -4.91568 0.127923 0.165688 -5e-06 0.13304</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -0 -8e-06 5e-06 6e-06 0</acceleration>
-          <wrench>0 -0 -8e-06 0 -0 0</wrench>
+          <acceleration>-1.43387 -2.59207 -2.62933 -2.56247 -0.428002 -2.57358</acceleration>
+          <wrench>-1.43387 -2.59207 -2.62933 0 -0 0</wrench>
         </link>
       </model>
       <model name='HeadphonesRack1'>
@@ -6968,30 +6652,30 @@
         </link>
       </model>
       <model name='MopCart1'>
-        <pose>6.08803 -12.3167 1.3e-05 0.000176 -5.5e-05 -0.293618</pose>
+        <pose>6.08988 -12.3167 -2.2e-05 0.000139 0.000113 -0.295881</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>6.08803 -12.3167 1.3e-05 0.000176 -5.5e-05 -0.293618</pose>
-          <velocity>-1e-06 -2e-06 -0.004628 0.031513 -0.040174 3e-06</velocity>
-          <acceleration>-0.002587 -0.003955 -2.89646 -2.60568 0.092248 0.004934</acceleration>
-          <wrench>-0.129343 -0.197726 -144.823 0 -0 0</wrench>
+          <pose>6.08988 -12.3167 -2.2e-05 0.000139 0.000113 -0.295881</pose>
+          <velocity>6e-06 4e-06 -0.017893 0.017154 0.056271 1.3e-05</velocity>
+          <acceleration>0.010361 0.004811 -4.0587 -2.74742 -0.269052 -3.12307</acceleration>
+          <wrench>0.518048 0.240557 -202.935 0 -0 0</wrench>
         </link>
       </model>
       <model name='MopCart2'>
-        <pose>4.89077 -1.8937 3.2e-05 5e-06 0 1.30183</pose>
+        <pose>4.89077 -1.8937 3.9e-05 0 1e-06 1.30183</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>4.89077 -1.8937 3.2e-05 5e-06 0 1.30183</pose>
+          <pose>4.89077 -1.8937 3.9e-05 0 1e-06 1.30183</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
-          <wrench>0 0 -9.8 0 -0 0</wrench>
+          <acceleration>7e-05 -0.000241 3.29081 2.92204 1.37732 -3.14159</acceleration>
+          <wrench>7e-05 -0.000241 3.29081 0 -0 0</wrench>
         </link>
       </model>
       <model name='MopCart2_clone'>
-        <pose>-23.3169 -0.243654 3.2e-05 -4e-06 -1e-06 2.24678</pose>
+        <pose>-23.3169 -0.243654 3.5e-05 1.5e-05 0 2.24678</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-23.3169 -0.243654 3.2e-05 -4e-06 -1e-06 2.24678</pose>
+          <pose>-23.3169 -0.243654 3.5e-05 1.5e-05 0 2.24678</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
@@ -7048,23 +6732,23 @@
         </link>
       </model>
       <model name='VendingMachine_clone_clone_clone_0'>
-        <pose>-19.2288 -0.092767 -0 1e-06 -0 -1.53335</pose>
+        <pose>-19.2288 -0.092767 -0 -1e-06 0 -1.53335</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose>-19.2288 -0.092767 -0 1e-06 -0 -1.53335</pose>
+          <pose>-19.2288 -0.092767 -0 -1e-06 0 -1.53335</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-2e-06 -0 -0.085992 -3.01548 1.04165 -3.14159</acceleration>
-          <wrench>-2e-06 -0 -0.085992 0 -0 0</wrench>
+          <acceleration>2e-06 0 0.087748 3.01576 -1.04097 3.14159</acceleration>
+          <wrench>2e-06 0 0.087748 0 -0 0</wrench>
         </link>
       </model>
       <model name='VendingMachine_clone_clone_clone_0_clone'>
-        <pose>-20.4208 -0.162573 -0 -1e-06 -0 -1.57119</pose>
+        <pose>-20.4208 -0.162573 4e-06 -1e-05 0 -1.57119</pose>
         <scale>1 1 1</scale>
         <link name='body'>
-          <pose>-20.4208 -0.162573 -0 -1e-06 -0 -1.57119</pose>
+          <pose>-20.4208 -0.162573 4e-06 -1e-05 0 -1.57119</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>2e-06 -0 0.082779 -3.1099 -1.04059 3.14159</acceleration>
-          <wrench>2e-06 -0 0.082779 0 -0 0</wrench>
+          <acceleration>-1.2e-05 1.2e-05 4.59629 2.6127 0.034654 -0</acceleration>
+          <wrench>-1.2e-05 1.2e-05 4.59629 0 -0 0</wrench>
         </link>
       </model>
       <model name='WhiteCabinet_clone_clone_0'>
@@ -7087,6 +6771,66 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
+      <model name='adult_guard_1'>
+        <pose>17.6056 6.74275 0 0 -0 3.14</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>17.6056 6.74275 0 0 -0 3.14</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='adult_guard_2'>
+        <pose>2.3 4.5 0 0 -0 3.14</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.3 4.5 0 0 -0 3.14</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='adult_guard_3'>
+        <pose>12.8 -2 0 0 -0 3.14</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>12.8 -2 0 0 -0 3.14</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='adult_guard_4'>
+        <pose>2.8 -2.5 0 0 -0 3.14</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.8 -2.5 0 0 -0 3.14</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='adult_solo_1'>
+        <pose>4.5 4 0 0 -0 3.14</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>4.5 4 0 0 -0 3.14</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='adult_solo_2'>
+        <pose>7.43311 0.006477 0 0 -0 3.14</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>7.43311 0.006477 0 0 -0 3.14</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
       <model name='aws_robomaker_retail_AirConditionerC_01'>
         <pose>-26.5075 11.5 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -7103,8 +6847,8 @@
         <link name='link'>
           <pose>-17.2387 -11.334 0.149 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 1.9e-05 -0 -0.000128 2e-06 0</acceleration>
-          <wrench>1e-06 3.8e-05 -1e-06 0 -0 0</wrench>
+          <acceleration>-0 -1.9e-05 0 0.000128 -2e-06 0</acceleration>
+          <wrench>-1e-06 -3.8e-05 1e-06 0 -0 0</wrench>
         </link>
       </model>
       <model name='cardboard_box_clone'>
@@ -7113,8 +6857,8 @@
         <link name='link'>
           <pose>12.6609 -4.01757 0.149 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 1.9e-05 -0 -0.000128 2e-06 0</acceleration>
-          <wrench>1e-06 3.8e-05 -1e-06 0 -0 0</wrench>
+          <acceleration>-0 -1.9e-05 0 0.000128 -2e-06 0</acceleration>
+          <wrench>-1e-06 -3.8e-05 1e-06 0 -0 0</wrench>
         </link>
       </model>
       <model name='casual_female_clone'>
@@ -7122,6 +6866,46 @@
         <scale>1 1 1</scale>
         <link name='link'>
           <pose>-34.2286 0.041969 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='child_1'>
+        <pose>15.6083 -5.80091 0 0 -0 3.14</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>15.6083 -5.80091 0 0 -0 3.14</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='child_2'>
+        <pose>1.5 4.5 0 0 -0 3.14</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>1.5 4.5 0 0 -0 3.14</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='child_3'>
+        <pose>12 -2 0 0 -0 3.14</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>12 -2 0 0 -0 3.14</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='child_4'>
+        <pose>2 -2.5 0 0 -0 3.14</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2 -2.5 0 0 -0 3.14</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -7148,109 +6932,109 @@
         </link>
       </model>
       <model name='drc_vehicle'>
-        <pose>22.3677 3.45924 0.000304 -4e-06 6.4e-05 0.17468</pose>
+        <pose>22.3801 3.44945 0.000303 -7e-06 6.4e-05 0.177312</pose>
         <scale>1 1 1</scale>
         <link name='polaris_ranger_ev::FNR_switch'>
-          <pose>22.9228 3.53688 1.08027 -4e-06 -0.049936 0.17468</pose>
-          <velocity>-0.000907 -0.004082 -0.00613 0.005432 -0.001101 -0.000155</velocity>
-          <acceleration>-2e-06 1e-06 1e-06 0.005123 -0.029045 -1.1e-05</acceleration>
-          <wrench>-0 0 0 0 -0 0</wrench>
+          <pose>22.9349 3.52856 1.08027 -7e-06 -0.049938 0.177312</pose>
+          <velocity>-0.000994 -0.004079 -0.00607 0.005258 -0.000861 -0.000241</velocity>
+          <acceleration>-4e-06 5e-06 1e-06 -0.736436 0.751923 3.14144</acceleration>
+          <wrench>-0 1e-06 0 0 -0 0</wrench>
         </link>
         <link name='polaris_ranger_ev::brake_pedal'>
-          <pose>23.0187 3.84829 0.539098 -5e-06 6.6e-05 0.17468</pose>
-          <velocity>-0.000186 -0.001145 -0.004292 0.005528 -0.001359 -0.000165</velocity>
-          <acceleration>-0 0 1e-06 -2e-06 -3e-06 -1e-06</acceleration>
-          <wrench>-0 0 0 0 -0 0</wrench>
+          <pose>23.03 3.84021 0.539097 -7e-06 6.5e-05 0.177312</pose>
+          <velocity>-0.000211 -0.001214 -0.004262 0.00541 -0.001424 -0.000252</velocity>
+          <acceleration>-1e-06 -1e-06 -2e-06 -1.2e-05 -7e-06 2e-06</acceleration>
+          <wrench>-0 -0 -0 0 -0 0</wrench>
         </link>
         <link name='polaris_ranger_ev::chassis'>
-          <pose>22.3677 3.45924 0.000304 -4e-06 6.4e-05 0.17468</pose>
-          <velocity>0.000444 0.001873 -0.007266 0.005407 -0.001257 -0.00015</velocity>
-          <acceleration>0 0 -1e-06 -1e-06 -5e-06 8e-06</acceleration>
-          <wrench>1.1e-05 0.000305 -0.000408 0 -0 0</wrench>
+          <pose>22.3801 3.44945 0.000303 -7e-06 6.4e-05 0.177312</pose>
+          <velocity>0.00042 0.001796 -0.007241 0.005289 -0.001323 -0.000237</velocity>
+          <acceleration>1e-06 -4e-06 -1e-06 -1.3e-05 -9e-06 1.1e-05</acceleration>
+          <wrench>0.000466 -0.002843 -0.000986 0 -0 0</wrench>
         </link>
         <link name='polaris_ranger_ev::front_left_wheel'>
-          <pose>23.3595 4.20725 0.320322 -1.44918 1.14407 -0.587985</pose>
-          <velocity>-0.000471 -0.000664 -0.01198 0.003493 -0.002784 -0.000291</velocity>
-          <acceleration>0 -0 -0 1e-06 1e-06 -1e-06</acceleration>
-          <wrench>6e-06 -6e-06 -4e-06 0 -0 0</wrench>
+          <pose>23.3698 4.20008 0.32032 -1.4373 1.18416 -0.572423</pose>
+          <velocity>-0.000424 -0.00075 -0.012005 0.003721 -0.002631 -0.000362</velocity>
+          <acceleration>-0 -0 -6e-06 1e-06 -0 5e-06</acceleration>
+          <wrench>-0 -0 -6.9e-05 0 -0 0</wrench>
         </link>
         <link name='polaris_ranger_ev::front_left_wheel_steering_block'>
-          <pose>23.2952 4.13064 0.320353 1.57075 3.8e-05 -0.69802</pose>
-          <velocity>-0.000493 -0.000659 -0.01529 0.005083 -0.000996 -0.000149</velocity>
-          <acceleration>0 -0 -1e-06 -2e-06 -3e-06 -1e-06</acceleration>
-          <wrench>0 -0 -1e-06 0 -0 0</wrench>
+          <pose>23.3057 4.1233 0.320351 1.57075 3.6e-05 -0.695388</pose>
+          <velocity>-0.000454 -0.000737 -0.015322 0.004974 -0.001071 -0.000236</velocity>
+          <acceleration>0 0 -6e-06 -1.2e-05 -7e-06 2e-06</acceleration>
+          <wrench>0 0 -6e-06 0 -0 0</wrench>
         </link>
         <link name='polaris_ranger_ev::front_right_wheel'>
-          <pose>23.5186 3.05906 0.320247 -1.52171 0.00328 -2.62182</pose>
-          <velocity>0.000496 -0.000837 -0.004877 0.001884 0.001253 -0.00035</velocity>
-          <acceleration>-0 0 2e-06 -1e-06 -1e-06 0</acceleration>
-          <wrench>-6e-06 1e-06 1.9e-05 0 -0 0</wrench>
+          <pose>23.5258 3.04901 0.320247 -1.5217 -0.018458 -2.69077</pose>
+          <velocity>0.000249 -0.000896 -0.004615 0.002408 -0.000215 0.002232</velocity>
+          <acceleration>0 2e-06 2e-06 -9e-06 -2e-06 -1.2e-05</acceleration>
+          <wrench>1e-06 2.6e-05 1.9e-05 0 -0 0</wrench>
         </link>
         <link name='polaris_ranger_ev::front_right_wheel_steering_block'>
-          <pose>23.469 3.14587 0.320251 1.57082 6.2e-05 0.519609</pose>
-          <velocity>0.000513 -0.000832 -0.003604 0.005177 -0.001435 -0.000137</velocity>
-          <acceleration>-0 0 1e-06 -1e-06 -3e-06 -0</acceleration>
-          <wrench>-0 0 1e-06 0 -0 0</wrench>
+          <pose>23.4821 3.13898 0.320251 1.57081 6.4e-05 0.451742</pose>
+          <velocity>-4.9e-05 -0.001063 -0.003293 0.005061 -0.001473 0.001814</velocity>
+          <acceleration>1e-06 3e-06 -3e-06 -1.1e-05 -6e-06 -6e-06</acceleration>
+          <wrench>1e-06 3e-06 -3e-06 0 -0 0</wrench>
         </link>
         <link name='polaris_ranger_ev::gas_pedal'>
-          <pose>23.0265 3.67705 0.523691 -4e-06 6.5e-05 0.17468</pose>
-          <velocity>-0.000192 -0.001059 -0.005227 0.005489 -0.001337 -0.00016</velocity>
-          <acceleration>-0 0 1e-06 -2e-06 -3e-06 -1e-06</acceleration>
-          <wrench>-0 0 0 0 -0 0</wrench>
+          <pose>23.0383 3.66899 0.52369 -7e-06 6.5e-05 0.177312</pose>
+          <velocity>-0.00023 -0.001131 -0.005176 0.00537 -0.001401 -0.000247</velocity>
+          <acceleration>-1e-06 -1e-06 -0 -1.2e-05 -7e-06 2e-06</acceleration>
+          <wrench>-0 -0 -0 0 -0 0</wrench>
         </link>
         <link name='polaris_ranger_ev::hand_brake'>
-          <pose>22.8776 3.6203 1.05027 -5e-06 -0.599936 0.174683</pose>
-          <velocity>-0.000856 -0.003911 -0.005732 0.005402 -0.000904 -0.000161</velocity>
-          <acceleration>-2e-06 1e-06 1e-06 0.00061 -0.003459 3e-06</acceleration>
-          <wrench>-1e-06 1e-06 0 0 -0 0</wrench>
+          <pose>22.8895 3.61186 1.05027 -8e-06 -0.599936 0.177317</pose>
+          <velocity>-0.000934 -0.003908 -0.005685 0.005278 -0.000942 -0.000247</velocity>
+          <acceleration>-4e-06 5e-06 -0 0.000654 -0.003739 1.1e-05</acceleration>
+          <wrench>-2e-06 2e-06 -0 0 -0 0</wrench>
         </link>
         <link name='polaris_ranger_ev::rear_left_wheel'>
-          <pose>21.4264 3.90239 0.320355 -1.34151 1.34836 0.397688</pose>
-          <velocity>0.000196 -0.000129 -0.005813 0.001266 0.000762 2.5e-05</velocity>
-          <acceleration>1e-06 1e-06 -4e-06 0.003603 -0.020527 -0.006165</acceleration>
-          <wrench>6e-06 1.2e-05 -5.3e-05 0 -0 0</wrench>
+          <pose>21.4376 3.89013 0.320352 -1.31015 1.37509 0.432372</pose>
+          <velocity>0.000191 -8.3e-05 -0.005915 0.001151 0.000729 -5.6e-05</velocity>
+          <acceleration>-1e-06 -4e-06 -1.3e-05 0.005262 -0.029431 -0.009052</acceleration>
+          <wrench>-7e-06 -4.6e-05 -0.000157 0 -0 0</wrench>
         </link>
         <link name='polaris_ranger_ev::rear_right_wheel'>
-          <pose>21.635 2.72066 0.320302 1.39563 1.2789 0.007591</pose>
-          <velocity>4.8e-05 -0.000383 -0.012292 -0.000712 -0.000108 -0.000258</velocity>
-          <acceleration>-0 1e-06 -2e-06 -0.00368 0.020742 -0.00016</acceleration>
-          <wrench>-2e-06 8e-06 -2.1e-05 0 -0 0</wrench>
+          <pose>21.6493 2.70895 0.3203 1.37145 1.31489 -0.014886</pose>
+          <velocity>-5.6e-05 -0.000356 -0.012238 -0.000783 -0.000406 -0.000344</velocity>
+          <acceleration>3e-06 -4e-06 4e-06 -0.005342 0.02976 -9e-06</acceleration>
+          <wrench>3e-05 -5.3e-05 5.2e-05 0 -0 0</wrench>
         </link>
         <link name='polaris_ranger_ev::steering_wheel'>
-          <pose>22.6494 3.81158 1.28857 0.866382 0.091555 -1.47366</pose>
-          <velocity>-0.001127 -0.005178 -0.004975 0.005429 -0.001269 -0.000127</velocity>
-          <acceleration>-3e-06 2e-06 -0 -3e-06 -1.7e-05 -4e-06</acceleration>
-          <wrench>-3e-06 2e-06 -0 0 -0 0</wrench>
+          <pose>22.6594 3.80428 1.28722 0.001896 0.869935 -2.96181</pose>
+          <velocity>-0.001202 -0.00512 -0.004963 0.004823 -0.001422 0.000205</velocity>
+          <acceleration>-6e-06 7e-06 -4e-06 0.021212 0.003786 -0.018199</acceleration>
+          <wrench>-6e-06 7e-06 -4e-06 0 -0 0</wrench>
         </link>
       </model>
       <model name='euro_pallet'>
-        <pose>-12.4302 -14.0613 0.071998 0 -6e-06 -0.013014</pose>
+        <pose>-12.4302 -14.0613 0.071997 0 -1e-05 -0.013014</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-12.4302 -14.0613 0.071998 0 -6e-06 -0.013014</pose>
+          <pose>-12.4302 -14.0613 0.071997 0 -1e-05 -0.013014</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0.046411 0.000575 -9.66955 -0.012561 -0.644892 -1.3e-05</acceleration>
-          <wrench>-0.928219 0.011494 -193.391 0 -0 0</wrench>
+          <acceleration>-0.09842 0.001255 -9.52338 -0.027147 -1.36742 -1.8e-05</acceleration>
+          <wrench>-1.96839 0.025097 -190.468 0 -0 0</wrench>
         </link>
       </model>
       <model name='euro_pallet_clone'>
-        <pose>-14.3212 -14.0538 0.071998 0 -6e-06 -0.013027</pose>
+        <pose>-14.3212 -14.0538 0.071997 -0 -1e-05 -0.013027</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-14.3212 -14.0538 0.071998 0 -6e-06 -0.013027</pose>
+          <pose>-14.3212 -14.0538 0.071997 -0 -1e-05 -0.013027</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0.046411 0.000575 -9.66955 -0.012574 -0.644892 -1.3e-05</acceleration>
-          <wrench>-0.928218 0.011506 -193.391 0 -0 0</wrench>
+          <acceleration>-0.09842 0.001256 -9.52338 -0.027175 -1.36742 -1.8e-05</acceleration>
+          <wrench>-1.96839 0.025123 -190.468 0 -0 0</wrench>
         </link>
       </model>
       <model name='euro_pallet_clone_clone'>
-        <pose>-13.4174 -14.0597 0.071998 0 -6e-06 -0.013027</pose>
+        <pose>-13.4174 -14.0597 0.071997 -0 -1e-05 -0.013027</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-13.4174 -14.0597 0.071998 0 -6e-06 -0.013027</pose>
+          <pose>-13.4174 -14.0597 0.071997 -0 -1e-05 -0.013027</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0.046411 0.000575 -9.66955 -0.012574 -0.644892 -1.3e-05</acceleration>
-          <wrench>-0.928218 0.011506 -193.391 0 -0 0</wrench>
+          <acceleration>-0.09842 0.001256 -9.52338 -0.027175 -1.36742 -1.8e-05</acceleration>
+          <wrench>-1.96839 0.025123 -190.468 0 -0 0</wrench>
         </link>
       </model>
       <model name='factory_wall'>
@@ -7264,13 +7048,13 @@
         </link>
       </model>
       <model name='first_2015_trash_can'>
-        <pose>-22.1525 -0.055132 -5e-06 9e-06 2e-05 -0.010783</pose>
+        <pose>-22.1523 -0.055171 -1e-06 4e-06 1.6e-05 -0.011644</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-22.1525 -0.055132 -5e-06 9e-06 2e-05 -0.010783</pose>
+          <pose>-22.1523 -0.055171 -1e-06 4e-06 1.6e-05 -0.011644</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>2.75862 -0.425894 -3.20903 1.15573 1.20748 0.000571</acceleration>
-          <wrench>13.3262 -2.05739 -15.5021 0 -0 0</wrench>
+          <acceleration>-3.94532 0.616074 -0.168117 1.46516 1.29361 3.13918</acceleration>
+          <wrench>-19.0589 2.97611 -0.812132 0 -0 0</wrench>
         </link>
       </model>
       <model name='foldable_chair_0_clone'>
@@ -7574,7 +7358,7 @@
         </link>
       </model>
       <model name='grey_wall_clone_clone_clone_0_clone_clone_clone'>
-        <pose>4.38055 -10.5454 9e-06 -0.000989 1.1e-05 1.56458</pose>
+        <pose>4.38055 -10.5454 1.1e-05 -0.000989 1.1e-05 1.56458</pose>
         <scale>1 1 1</scale>
         <link name='link'>
           <pose>4.37917 -10.5454 1.40001 -0.000989 1.1e-05 1.56458</pose>
@@ -7584,7 +7368,7 @@
         </link>
       </model>
       <model name='grey_wall_clone_clone_clone_clone'>
-        <pose>-1.89275 4.55533 0.184377 -0.000989 -0 1.55353</pose>
+        <pose>-1.89275 4.55533 0.184381 -0.000989 -0 1.55353</pose>
         <scale>1 1 1</scale>
         <link name='link'>
           <pose>-1.89413 4.55535 1.58438 -0.000989 -0 1.55353</pose>
@@ -7634,7 +7418,7 @@
         </link>
       </model>
       <model name='grey_wall_clone_clone_clone_clone_clone'>
-        <pose>-27.8192 -11.2097 0.184394 -0.000989 -0 1.55353</pose>
+        <pose>-27.8192 -11.2096 0.184391 -0.000989 -0 1.55353</pose>
         <scale>1 1 1</scale>
         <link name='link'>
           <pose>-27.8206 -11.2096 1.58439 -0.000989 -0 1.55353</pose>
@@ -7714,7 +7498,7 @@
         </link>
       </model>
       <model name='grey_wall_clone_clone_clone_clone_clone_4_clone'>
-        <pose>-25.1301 4.57694 -0.004995 -0.000989 -0 1.55353</pose>
+        <pose>-25.1301 4.57694 -0.004999 -0.000989 -0 1.55353</pose>
         <scale>1 1 1</scale>
         <link name='link'>
           <pose>-25.1315 4.57696 1.395 -0.000989 -0 1.55353</pose>
@@ -7724,7 +7508,7 @@
         </link>
       </model>
       <model name='grey_wall_clone_clone_clone_clone_clone_clone'>
-        <pose>-27.733 -6.91969 0.184345 -0.000989 -0 1.55353</pose>
+        <pose>-27.733 -6.91969 0.184341 -0.000989 -0 1.55353</pose>
         <scale>1 1 1</scale>
         <link name='link'>
           <pose>-27.7344 -6.91967 1.58434 -0.000989 -0 1.55353</pose>
@@ -7754,65 +7538,65 @@
         </link>
       </model>
       <model name='my_robot'>
-        <pose>6.48517 -6.94024 4.2e-05 0 -0.050929 2.26146</pose>
+        <pose>13.0713 -7.16766 4.7e-05 1.2e-05 -0.050949 -3.07592</pose>
         <scale>1 1 1</scale>
         <link name='base_footprint'>
-          <pose>6.48517 -6.94024 4.2e-05 0 -0.050929 2.26146</pose>
-          <velocity>-1e-06 1e-06 -5.3e-05 -0.03171 -0.026315 1e-06</velocity>
-          <acceleration>-1.63921 1.99117 5.41036 -1.78068 -0.126143 -2.96203</acceleration>
-          <wrench>-2.43587 2.95889 8.03979 0 -0 0</wrench>
+          <pose>13.0713 -7.16766 4.7e-05 1.2e-05 -0.050949 -3.07592</pose>
+          <velocity>-0.003231 0.002387 0.004225 0.027039 -0.010128 -0.012706</velocity>
+          <acceleration>0.550728 -0.504773 11.1277 -1.48096 0.936726 0.422386</acceleration>
+          <wrench>0.819484 -0.751102 16.558 0 -0 0</wrench>
         </link>
         <link name='wheel_left_link'>
-          <pose>6.37525 -7.03327 0.033 1.57084 0.079824 -0.880049</pose>
-          <velocity>-0.001159 0.001395 4e-06 -0.043792 -0.036231 -0.010214</velocity>
-          <acceleration>-0.81152 0.979712 0.019598 2.89539 0.176103 -2.87093</acceleration>
-          <wrench>-0.022723 0.027432 0.000549 0 -0 0</wrench>
+          <pose>13.0824 -7.31122 0.033009 -1.57418 1.20413 -3.07926</pose>
+          <velocity>-0.005147 0.000636 0.000525 -0.022918 -0.159863 -0.008049</velocity>
+          <acceleration>0.102136 0.51461 0.925124 -1.35867 -0.292988 0.982358</acceleration>
+          <wrench>0.00286 0.014409 0.025903 0 -0 0</wrench>
         </link>
         <link name='wheel_right_link'>
-          <pose>6.59724 -6.8498 0.033 1.57072 -1.14144 -0.880141</pose>
-          <velocity>-0.001146 0.001393 -5e-06 -0.043619 -0.036071 0.009937</velocity>
-          <acceleration>-0.841582 1.01508 -8.1e-05 2.37705 0.656495 2.74682</acceleration>
-          <wrench>-0.023564 0.028422 -2e-06 0 -0 0</wrench>
+          <pose>13.0635 -7.02387 0.033003 1.56972 0.51278 0.065173</pose>
+          <velocity>-0.002276 -0.004285 0.008623 -3.00004 -0.540484 -3.12758</velocity>
+          <acceleration>0.403935 -5.78565 21.2089 2.23618 -0.5934 0.068826</acceleration>
+          <wrench>0.01131 -0.161998 0.593849 0 -0 0</wrench>
         </link>
       </model>
       <model name='pallet_box_mobile'>
-        <pose>-17.8168 -13.097 -0.005008 1.2e-05 -6e-06 -0.000821</pose>
+        <pose>-17.8168 -13.0972 -0.005007 1.2e-05 -9e-06 -0.000954</pose>
         <scale>1 1 1</scale>
         <link name='pallet_base'>
-          <pose>-17.8168 -13.097 -0.005008 1.2e-05 -6e-06 -0.000821</pose>
+          <pose>-17.8168 -13.0972 -0.005007 1.2e-05 -9e-06 -0.000954</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-1.40458 -0.374329 2.42378 -2.16323 0.414519 -3.13755</acceleration>
-          <wrench>-280.916 -74.8657 484.756 0 -0 0</wrench>
+          <acceleration>-1.0361 -0.329868 1.06512 -2.30801 -0.518568 3.14147</acceleration>
+          <wrench>-207.22 -65.9737 213.023 0 -0 0</wrench>
         </link>
       </model>
       <model name='pallet_box_mobile_clone'>
-        <pose>-5.79338 -12.8276 -0.005006 1.2e-05 -8e-06 0.546706</pose>
+        <pose>-5.79335 -12.8276 -0.005009 9e-06 5e-06 0.546643</pose>
         <scale>1 1 1</scale>
         <link name='pallet_base'>
-          <pose>-5.79338 -12.8276 -0.005006 1.2e-05 -8e-06 0.546706</pose>
+          <pose>-5.79335 -12.8276 -0.005009 9e-06 5e-06 0.546643</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0.69904 -0.692646 0.99624 -1.38837 -1.37185 3.14156</acceleration>
-          <wrench>-139.808 -138.529 199.248 0 -0 0</wrench>
+          <acceleration>1.88384 0.099229 3.3585 -0.251689 -1.51398 1.2e-05</acceleration>
+          <wrench>376.768 19.8457 671.7 0 -0 0</wrench>
         </link>
       </model>
       <model name='pallet_box_mobile_clone_clone'>
-        <pose>15.6973 -2.48865 -0.005009 1.2e-05 5e-06 -0.018511</pose>
+        <pose>15.9265 -2.98844 -0.005009 1.1e-05 5e-06 -0.683003</pose>
         <scale>1 1 1</scale>
         <link name='pallet_base'>
-          <pose>15.6973 -2.48865 -0.005009 1.2e-05 5e-06 -0.018511</pose>
+          <pose>15.9265 -2.98844 -0.005009 1.1e-05 5e-06 -0.683003</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-1.99622 0.794582 -3.72438 -2.04615 1.22937 0.004649</acceleration>
-          <wrench>-399.244 158.916 -744.876 0 -0 0</wrench>
+          <acceleration>0.88023 -1.47853 3.95151 0.621231 0.915385 3.13566</acceleration>
+          <wrench>176.046 -295.705 790.301 0 -0 0</wrench>
         </link>
       </model>
       <model name='person_standing_clone_clone_clone'>
-        <pose>9.48839 -12.7798 -0 1e-06 1e-06 -1.91873</pose>
+        <pose>9.48837 -12.7799 -1e-06 -1e-06 -2e-06 -1.91951</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>9.48839 -12.7798 -0 1e-06 1e-06 -1.91873</pose>
+          <pose>9.48837 -12.7799 -1e-06 -1e-06 -2e-06 -1.91951</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-1.62504 -1.13573 -1.4598 -2.01594 -1.38831 -3.09957</acceleration>
-          <wrench>-130.003 -90.8587 -116.784 0 -0 0</wrench>
+          <acceleration>1.66035 1.15814 -1.27742 1.98947 1.34557 -3.09584</acceleration>
+          <wrench>132.828 92.6513 -102.194 0 -0 0</wrench>
         </link>
       </model>
       <model name='person_walking_0'>
@@ -8319,6 +8103,885 @@
         <kinematic>0</kinematic>
       </link>
       <pose>-23.7702 -6.72892 -1.53873 0 -0 0</pose>
+    </model>
+    <model name='adult_guard_1'>
+      <static>1</static>
+      <pose>14 2 0 0 -0 3.14</pose>
+      <link name='link'>
+        <inertial>
+          <mass>70</mass>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <inertia>
+            <ixx>25</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>25</iyy>
+            <iyz>0</iyz>
+            <izz>2.5</izz>
+          </inertia>
+        </inertial>
+        <collision name='col'>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='vis'>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='child_1'>
+      <static>1</static>
+      <pose>5 2.5 0 0 -0 3.14</pose>
+      <link name='link'>
+        <inertial>
+          <mass>25</mass>
+          <pose>0 0 0.6 0 -0 0</pose>
+          <inertia>
+            <ixx>5</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>5</iyy>
+            <iyz>0</iyz>
+            <izz>0.5</izz>
+          </inertia>
+        </inertial>
+        <collision name='col'>
+          <pose>0 0 0.6 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='vis'>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+              <scale>0.6 0.6 0.6</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='adult_guard_2'>
+      <static>1</static>
+      <pose>2.3 4.5 0 0 -0 3.14</pose>
+      <link name='link'>
+        <inertial>
+          <mass>70</mass>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <inertia>
+            <ixx>25</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>25</iyy>
+            <iyz>0</iyz>
+            <izz>2.5</izz>
+          </inertia>
+        </inertial>
+        <collision name='col'>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='vis'>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='child_2'>
+      <static>1</static>
+      <pose>1.5 4.5 0 0 -0 3.14</pose>
+      <link name='link'>
+        <inertial>
+          <mass>25</mass>
+          <pose>0 0 0.6 0 -0 0</pose>
+          <inertia>
+            <ixx>5</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>5</iyy>
+            <iyz>0</iyz>
+            <izz>0.5</izz>
+          </inertia>
+        </inertial>
+        <collision name='col'>
+          <pose>0 0 0.6 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='vis'>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+              <scale>0.6 0.6 0.6</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='adult_guard_3'>
+      <static>1</static>
+      <pose>12.8 -2 0 0 -0 3.14</pose>
+      <link name='link'>
+        <inertial>
+          <mass>70</mass>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <inertia>
+            <ixx>25</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>25</iyy>
+            <iyz>0</iyz>
+            <izz>2.5</izz>
+          </inertia>
+        </inertial>
+        <collision name='col'>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='vis'>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='child_3'>
+      <static>1</static>
+      <pose>12 -2 0 0 -0 3.14</pose>
+      <link name='link'>
+        <inertial>
+          <mass>25</mass>
+          <pose>0 0 0.6 0 -0 0</pose>
+          <inertia>
+            <ixx>5</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>5</iyy>
+            <iyz>0</iyz>
+            <izz>0.5</izz>
+          </inertia>
+        </inertial>
+        <collision name='col'>
+          <pose>0 0 0.6 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='vis'>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+              <scale>0.6 0.6 0.6</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='adult_guard_4'>
+      <static>1</static>
+      <pose>2.8 -2.5 0 0 -0 3.14</pose>
+      <link name='link'>
+        <inertial>
+          <mass>70</mass>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <inertia>
+            <ixx>25</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>25</iyy>
+            <iyz>0</iyz>
+            <izz>2.5</izz>
+          </inertia>
+        </inertial>
+        <collision name='col'>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='vis'>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='child_4'>
+      <static>1</static>
+      <pose>2 -2.5 0 0 -0 3.14</pose>
+      <link name='link'>
+        <inertial>
+          <mass>25</mass>
+          <pose>0 0 0.6 0 -0 0</pose>
+          <inertia>
+            <ixx>5</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>5</iyy>
+            <iyz>0</iyz>
+            <izz>0.5</izz>
+          </inertia>
+        </inertial>
+        <collision name='col'>
+          <pose>0 0 0.6 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='vis'>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+              <scale>0.6 0.6 0.6</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='adult_solo_1'>
+      <static>1</static>
+      <pose>4.5 4 0 0 -0 3.14</pose>
+      <link name='link'>
+        <inertial>
+          <mass>70</mass>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <inertia>
+            <ixx>25</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>25</iyy>
+            <iyz>0</iyz>
+            <izz>2.5</izz>
+          </inertia>
+        </inertial>
+        <collision name='col'>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='vis'>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='adult_solo_2'>
+      <static>1</static>
+      <pose>11.5 0 0 0 -0 3.14</pose>
+      <link name='link'>
+        <inertial>
+          <mass>70</mass>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <inertia>
+            <ixx>25</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>25</iyy>
+            <iyz>0</iyz>
+            <izz>2.5</izz>
+          </inertia>
+        </inertial>
+        <collision name='col'>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='vis'>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='my_robot'>
+      <link name='base_footprint'>
+        <inertial>
+          <pose>-0.06378 0 0.062952 0 -0 0</pose>
+          <mass>1.488</mass>
+          <inertia>
+            <ixx>0.0103674</ixx>
+            <ixy>0</ixy>
+            <ixz>-4.82319e-05</ixz>
+            <iyy>0.0118811</iyy>
+            <iyz>0</iyz>
+            <izz>0.0125057</izz>
+          </inertia>
+        </inertial>
+        <collision name='base_footprint_fixed_joint_lump__base_link_collision'>
+          <pose>-0.064 0 0.057 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.266 0.266 0.094</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='base_footprint_fixed_joint_lump__camera_link_collision_1'>
+          <pose>0.1 0 0.21 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <collision name='base_footprint_fixed_joint_lump__depth_camera_link_collision_2'>
+          <pose>0.1 0 0.21 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <collision name='base_footprint_fixed_joint_lump__base_scan_collision_3'>
+          <pose>-0.064 0 0.132 0 -0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.0315</length>
+              <radius>0.055</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='base_footprint_fixed_joint_lump__base_link_visual'>
+          <pose>-0.064 0 0.057 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.266 0.266 0.094</size>
+            </box>
+          </geometry>
+        </visual>
+        <visual name='base_footprint_fixed_joint_lump__camera_link_visual_1'>
+          <pose>0.1 0 0.21 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.05 0.05 0.05</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Blue</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <visual name='base_footprint_fixed_joint_lump__depth_camera_link_visual_2'>
+          <pose>0.1 0 0.21 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.04 0.04 0.04</size>
+            </box>
+          </geometry>
+        </visual>
+        <visual name='base_footprint_fixed_joint_lump__base_scan_visual_3'>
+          <pose>-0.064 0 0.132 0 -0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.0315</length>
+              <radius>0.055</radius>
+            </cylinder>
+          </geometry>
+        </visual>
+        <sensor name='robot_camera' type='camera'>
+          <update_rate>30</update_rate>
+          <visualize>0</visualize>
+          <camera>
+            <horizontal_fov>1.39626</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.02</near>
+              <far>300</far>
+            </clip>
+          </camera>
+          <plugin name='camera_controller' filename='libgazebo_ros_camera.so'>
+            <ros>
+              <namespace>myrobot</namespace>
+              <remapping>robot_camera/image_raw:=camera/image_raw</remapping>
+              <remapping>robot_camera/camera_info:=camera/camera_info</remapping>
+            </ros>
+            <frame_name>camera_link</frame_name>
+          </plugin>
+          <pose>0.1 0 0.21 0 -0 0</pose>
+        </sensor>
+        <sensor name='depth_camera' type='depth'>
+          <update_rate>10</update_rate>
+          <visualize>0</visualize>
+          <camera>
+            <horizontal_fov>1.39626</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <depth_camera>
+              <output>depths</output>
+            </depth_camera>
+            <clip>
+              <near>0.05</near>
+              <far>10</far>
+            </clip>
+          </camera>
+          <plugin name='depth_camera_controller' filename='libgazebo_ros_camera.so'>
+            <ros>
+              <namespace>camera</namespace>
+              <remapping>depth_camera/image_raw:=depth/image_raw</remapping>
+              <remapping>depth_camera/camera_info:=depth/camera_info</remapping>
+              <remapping>depth_camera/points:=depth/points</remapping>
+            </ros>
+            <frame_name>depth_camera_link</frame_name>
+            <min_depth>0.05</min_depth>
+            <max_depth>10.0</max_depth>
+          </plugin>
+          <pose>0.1 0 0.21 0 -0 0</pose>
+        </sensor>
+        <sensor name='my_robot_lds' type='ray'>
+          <always_on>1</always_on>
+          <visualize>1</visualize>
+          <update_rate>5</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>360</samples>
+                <resolution>1</resolution>
+                <min_angle>0</min_angle>
+                <max_angle>6.28319</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>1</samples>
+                <min_angle>0</min_angle>
+                <max_angle>0</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.12</min>
+              <max>3.5</max>
+              <resolution>0.015</resolution>
+            </range>
+          </ray>
+          <plugin name='my_robot_laserscan' filename='libgazebo_ros_ray_sensor.so'>
+            <ros>
+              <namespace>/</namespace>
+              <remapping>~/out:=/scan</remapping>
+            </ros>
+            <output_type>sensor_msgs/LaserScan</output_type>
+            <frame_name>base_scan</frame_name>
+          </plugin>
+          <pose>-0.064 0 0.132 0 -0 0</pose>
+        </sensor>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wheel_left_joint' type='revolute'>
+        <pose relative_to='base_footprint'>0 0.144 0.033 -1.5708 0 0</pose>
+        <parent>base_footprint</parent>
+        <child>wheel_left_link</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='wheel_left_link'>
+        <pose relative_to='wheel_left_joint'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>0.028</mass>
+          <inertia>
+            <ixx>1.117e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1.119e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.071e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='wheel_left_link_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.018</length>
+              <radius>0.033</radius>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='wheel_left_link_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.018</length>
+              <radius>0.033</radius>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wheel_right_joint' type='revolute'>
+        <pose relative_to='base_footprint'>0 -0.144 0.033 -1.5708 0 0</pose>
+        <parent>base_footprint</parent>
+        <child>wheel_right_link</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='wheel_right_link'>
+        <pose relative_to='wheel_right_joint'>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>0.028</mass>
+          <inertia>
+            <ixx>1.117e-05</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1.119e-05</iyy>
+            <iyz>0</iyz>
+            <izz>2.071e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='wheel_right_link_collision'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.018</length>
+              <radius>0.033</radius>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='wheel_right_link_visual'>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.018</length>
+              <radius>0.033</radius>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <static>0</static>
+      <plugin name='my_robot_diff_drive' filename='libgazebo_ros_diff_drive.so'>
+        <ros>
+          <remapping>odom:=odom</remapping>
+          <namespace>/</namespace>
+        </ros>
+        <update_rate>30</update_rate>
+        <left_joint>wheel_left_joint</left_joint>
+        <right_joint>wheel_right_joint</right_joint>
+        <wheel_separation>0.287</wheel_separation>
+        <wheel_diameter>0.066</wheel_diameter>
+        <max_wheel_torque>20</max_wheel_torque>
+        <max_wheel_acceleration>1.0</max_wheel_acceleration>
+        <command_topic>cmd_vel</command_topic>
+        <publish_odom>1</publish_odom>
+        <publish_odom_tf>1</publish_odom_tf>
+        <publish_wheel_tf>0</publish_wheel_tf>
+        <odometry_topic>odom</odometry_topic>
+        <odometry_frame>odom</odometry_frame>
+        <robot_base_frame>base_footprint</robot_base_frame>
+      </plugin>
+      <pose>0 0 0.1 0 -0 0</pose>
     </model>
   </world>
 </sdf>

@@ -27,8 +27,12 @@ install(DIRECTORY
   launch
   urdf
   worlds
-  models
   maps
   config
+  rivz
+  models
+  scripts
   DESTINATION share/${PROJECT_NAME}/
 )
+
+ament_package()

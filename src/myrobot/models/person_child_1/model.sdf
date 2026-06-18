@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="person_child_1">
+    <static>true</static>
+    <link name="link">
+      <gravity>false</gravity>
+      <pose>0 0 0.5 0 0 0</pose>
+      <visual name="visual">
+        <geometry>
+          <box><size>0.35 0.05 1.0</size></box>
+        </geometry>
+        <material>
+          <script>
+            <uri>model://person_child_1/materials/scripts</uri>
+            <uri>model://person_child_1/materials/textures</uri>
+            <name>PersonChild1/Diffuse</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

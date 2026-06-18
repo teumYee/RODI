@@ -1,0 +1,15 @@
+material PersonChild2/Diffuse
+{
+  technique
+  {
+    pass
+    {
+      lighting off
+      texture_unit
+      {
+        texture child2_texture.png
+        filtering trilinear
+      }
+    }
+  }
+}
