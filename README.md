@@ -88,7 +88,7 @@ ros2 launch myrobot vision.launch.py
 ---
 ## AI 사용 여부
 본 프로젝트 개발 과정에서 **Claude (Anthropic)** 를 활용하였습니다.
-- `myrobot_vision` 패키지 전체 코드 작성 지원 (child_detector, guardian_logic, child_response, patrol, model_mover, tts 노드)
+- `myrobot_vision` 패키지 코드 작성 지원 (child_detector, guardian_logic, child_response, patrol, model_mover, tts 노드)
 - 디버깅 및 파라미터 튜닝 (`CHILD_HEIGHT_M`, `grace_sec`, `alert_hold_sec` 등)
 - Nav2 설정 및 launch 파일 구성
 
