@@ -37,8 +37,8 @@ import tf2_geometry_msgs
 from .tts_utils import speak_ko
 
 
-CUSTOMER_SERVICE_X = 18.0
-CUSTOMER_SERVICE_Y = 31.6
+CUSTOMER_SERVICE_X = -28.836395
+CUSTOMER_SERVICE_Y = -0.978329
 
 # ── 단계별 TTS (아이가 알아듣도록 친근하고 길게) ──────────────────────────
 TTS_FOUND = (
