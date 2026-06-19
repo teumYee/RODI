@@ -196,9 +196,10 @@
   <gazebo reference="camera_link">
     <material>Gazebo/Blue</material>
     <sensor type="camera" name="robot_camera">
+      <always_on>true</always_on>
       <update_rate>30</update_rate>
       <visualize>false</visualize>
-      <camera>
+      <camera name="camera">
         <horizontal_fov>1.3962634</horizontal_fov>
         <image>
           <width>640</width>
@@ -213,9 +214,8 @@
       <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
         <ros>
           <namespace>myrobot</namespace>
-          <remapping>robot_camera/image_raw:=camera/image_raw</remapping>
-          <remapping>robot_camera/camera_info:=camera/camera_info</remapping>
         </ros>
+        <camera_name>camera</camera_name>
         <frame_name>camera_link</frame_name>
       </plugin>
     </sensor>
@@ -242,9 +242,10 @@
 
   <gazebo reference="depth_camera_link">
     <sensor type="depth" name="depth_camera">
+      <always_on>true</always_on>
       <update_rate>10</update_rate>
       <visualize>false</visualize>
-      <camera>
+      <camera name="depth">
         <horizontal_fov>1.3962634</horizontal_fov>
         <image>
           <width>640</width>
@@ -260,10 +261,8 @@
       <plugin name="depth_camera_controller" filename="libgazebo_ros_camera.so">
         <ros>
           <namespace>camera</namespace>
-          <remapping>depth_camera/image_raw:=depth/image_raw</remapping>
-          <remapping>depth_camera/camera_info:=depth/camera_info</remapping>
-          <remapping>depth_camera/points:=depth/points</remapping>
         </ros>
+        <camera_name>depth</camera_name>
         <frame_name>depth_camera_link</frame_name>
         <min_depth>0.05</min_depth>
         <max_depth>10.0</max_depth>

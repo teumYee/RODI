@@ -28,7 +28,9 @@ CHILD_HEIGHT_PX      = 260
 CHILD_ASPECT_MAX     = 5.0   # person_standing 메쉬는 세로로 길어 aspect 높음
 # depth 기반 실제 키(m) 임계값: 1.6m 미만 → 어린이 (0.6 스케일 모델 ~1.08m, 여유 포함)
 CHILD_HEIGHT_M       = 1.6
-CONFIDENCE_THRESHOLD = 0.30  # 노이즈 감지 제거용 — Gazebo 메쉬 기준
+CONFIDENCE_THRESHOLD = 0.50  # 데모 영상에서 중복/노이즈 감지 제거용
+CHILD_NOMINAL_HEIGHT_M = 1.10
+ADULT_NOMINAL_HEIGHT_M = 1.70
 
 
 class ChildDetectorNode(Node):
@@ -57,12 +59,14 @@ class ChildDetectorNode(Node):
         )
 
         self.declare_parameter('rgb_topic', '/myrobot/camera/image_raw')
-        self.declare_parameter('depth_topic', '/camera/depth_camera/depth/image_raw')
-        self.declare_parameter('depth_info_topic', '/camera/depth_camera/depth/camera_info')
+        self.declare_parameter('depth_topic', '/camera/depth/image_raw')
+        self.declare_parameter('depth_info_topic', '/camera/depth/camera_info')
         self.declare_parameter('classification_mode', 'bbox')
         self.declare_parameter('child_height_px', CHILD_HEIGHT_PX)
         self.declare_parameter('child_aspect_max', CHILD_ASPECT_MAX)
         self.declare_parameter('child_height_m', CHILD_HEIGHT_M)
+        self.declare_parameter('child_nominal_height_m', CHILD_NOMINAL_HEIGHT_M)
+        self.declare_parameter('adult_nominal_height_m', ADULT_NOMINAL_HEIGHT_M)
 
         rgb_topic = self.get_parameter('rgb_topic').value
         depth_topic = self.get_parameter('depth_topic').value
@@ -71,6 +75,12 @@ class ChildDetectorNode(Node):
         self.child_height_px = float(self.get_parameter('child_height_px').value)
         self.child_aspect_max = float(self.get_parameter('child_aspect_max').value)
         self.child_height_m = float(self.get_parameter('child_height_m').value)
+        self.child_nominal_h = float(
+            self.get_parameter('child_nominal_height_m').value
+        )
+        self.adult_nominal_h = float(
+            self.get_parameter('adult_nominal_height_m').value
+        )
 
         if self.classification_mode not in ('bbox', 'depth'):
             self.get_logger().warn(
@@ -173,6 +183,18 @@ class ChildDetectorNode(Node):
                 ]
                 valid = patch[np.isfinite(patch) & (patch > 0) & (patch < 10.0)]
                 z = float(np.median(valid)) if valid.size > 0 else -1.0
+                depth_source = 'depth'
+
+                if z <= 0:
+                    prelim_label, _ = self._classify_person_bbox(bbox_w, bbox_h)
+                    nominal_h = (
+                        self.child_nominal_h
+                        if prelim_label == 'child'
+                        else self.adult_nominal_h
+                    )
+                    z = float(self.fy * nominal_h / bbox_h)
+                    z = float(np.clip(z, 0.3, 10.0))
+                    depth_source = 'bbox_estimate'
 
                 # 3D 위치 (카메라 좌표계)
                 if z > 0:
@@ -182,6 +204,8 @@ class ChildDetectorNode(Node):
                     X, Y = 0.0, 0.0
 
                 label, reason = self._classify_person(bbox_w, bbox_h, z)
+                if depth_source != 'depth':
+                    reason = f'{reason} {depth_source}'
 
                 persons.append({
                     'label':      label,
@@ -220,6 +244,10 @@ class ChildDetectorNode(Node):
             label = 'child' if real_height_m < self.child_height_m else 'adult'
             return label, f'depth_height_m={real_height_m:.2f}'
 
+        return self._classify_person_bbox(bbox_w, bbox_h)
+
+    def _classify_person_bbox(self, bbox_w: int, bbox_h: int):
+        aspect = bbox_h / bbox_w
         is_child = bbox_h < self.child_height_px and aspect < self.child_aspect_max
         label = 'child' if is_child else 'adult'
         return label, f'bbox_h={bbox_h}px aspect={aspect:.2f}'
@@ -247,7 +275,8 @@ def main(args=None):
         pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == '__main__':

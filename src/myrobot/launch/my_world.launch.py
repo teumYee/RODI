@@ -1,41 +1,65 @@
 import os
 import tempfile
+import xml.etree.ElementTree as ET
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import (DeclareLaunchArgument, IncludeLaunchDescription,
                             SetEnvironmentVariable, ExecuteProcess)
+from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 
 def _world_with_state_plugin(world_path):
-    with open(world_path, 'r') as infp:
-        world_xml = infp.read()
-
-    if 'libgazebo_ros_state.so' in world_xml:
+    tree = ET.parse(world_path)
+    root = tree.getroot()
+    world = root.find('world')
+    if world is None:
         return world_path
 
-    plugin_xml = '''
-    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
-      <ros>
-        <namespace>/gazebo</namespace>
-      </ros>
-      <update_rate>5.0</update_rate>
-    </plugin>
-'''
-    insert_at = world_xml.find('>', world_xml.find('<world'))
-    if insert_at == -1:
+    changed = False
+
+    has_state_plugin = any(
+        elem.tag == 'plugin' and elem.attrib.get('filename') == 'libgazebo_ros_state.so'
+        for elem in world
+    )
+    if not has_state_plugin:
+        plugin = ET.Element('plugin', {
+            'name': 'gazebo_ros_state',
+            'filename': 'libgazebo_ros_state.so',
+        })
+        ros = ET.SubElement(plugin, 'ros')
+        namespace = ET.SubElement(ros, 'namespace')
+        namespace.text = '/gazebo'
+        update_rate = ET.SubElement(plugin, 'update_rate')
+        update_rate.text = '5.0'
+        world.insert(0, plugin)
+        changed = True
+
+    # The saved world contains an older my_robot model without RGB/depth cameras.
+    # Remove it from the temporary runtime world so spawn_entity owns the only robot.
+    for elem in list(world):
+        if elem.tag == 'model' and elem.attrib.get('name') == 'my_robot':
+            world.remove(elem)
+            changed = True
+
+    for state in world.findall('state'):
+        for elem in list(state):
+            if elem.tag == 'model' and elem.attrib.get('name') == 'my_robot':
+                state.remove(elem)
+                changed = True
+
+    if not changed:
         return world_path
 
-    patched_world = world_xml[:insert_at + 1] + plugin_xml + world_xml[insert_at + 1:]
     tmp = tempfile.NamedTemporaryFile(
         mode='w',
         suffix='.world',
         prefix='mart_state_',
         delete=False,
     )
-    tmp.write(patched_world)
+    tree.write(tmp, encoding='unicode', xml_declaration=False)
     tmp.close()
     return tmp.name
 
@@ -45,6 +69,11 @@ def generate_launch_description():
     pkg_myrobot = get_package_share_directory('myrobot')
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
+    gui = LaunchConfiguration('gui', default='true')
+    spawn_x = LaunchConfiguration('spawn_x', default='8.5')
+    spawn_y = LaunchConfiguration('spawn_y', default='0.0')
+    spawn_z = LaunchConfiguration('spawn_z', default='0.01')
+    spawn_yaw = LaunchConfiguration('spawn_yaw', default='1.5708')
 
     world_path = _world_with_state_plugin(
         os.path.join(pkg_myrobot, 'worlds', 'mart.world')
@@ -89,7 +118,7 @@ def generate_launch_description():
         executable='spawn_entity.py',
         arguments=['-topic', 'robot_description', '-entity', 'my_robot',
                    '-spawn_service_timeout', '30.0',
-                   '-x', '0.0', '-y', '0.0', '-z', '0.1', '-Y', '0.0'],
+                   '-x', spawn_x, '-y', spawn_y, '-z', spawn_z, '-Y', spawn_yaw],
         output='screen',
     )
 
@@ -104,13 +133,24 @@ def generate_launch_description():
             'echo "[launch] 로딩 완료! gzclient 실행" && '
             'gzclient'
         ],
-        output='screen'
+        output='screen',
+        condition=IfCondition(gui),
     )
 
     return LaunchDescription([
         set_gazebo_model_path,
         DeclareLaunchArgument('use_sim_time', default_value='true',
                               description='Use simulation clock'),
+        DeclareLaunchArgument('gui', default_value='true',
+                              description='Start Gazebo client GUI'),
+        DeclareLaunchArgument('spawn_x', default_value='8.5',
+                              description='Gazebo robot spawn X'),
+        DeclareLaunchArgument('spawn_y', default_value='0.0',
+                              description='Gazebo robot spawn Y'),
+        DeclareLaunchArgument('spawn_z', default_value='0.01',
+                              description='Gazebo robot spawn Z'),
+        DeclareLaunchArgument('spawn_yaw', default_value='1.5708',
+                              description='Gazebo robot spawn yaw'),
         gzserver,
         robot_state_publisher,
         spawn_robot,

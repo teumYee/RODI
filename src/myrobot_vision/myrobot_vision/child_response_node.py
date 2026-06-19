@@ -22,6 +22,7 @@ import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
 from rclpy.duration import Duration
+from action_msgs.msg import GoalStatus
 
 from std_msgs.msg import String
 from geometry_msgs.msg import PoseStamped, PointStamped, Pose, Twist
@@ -37,8 +38,8 @@ import tf2_geometry_msgs
 from .tts_utils import speak_ko
 
 
-CUSTOMER_SERVICE_X = -28.836395
-CUSTOMER_SERVICE_Y = -0.978329
+CUSTOMER_SERVICE_X = 14.465
+CUSTOMER_SERVICE_Y = 43.724
 
 # ── 단계별 TTS (아이가 알아듣도록 친근하고 길게) ──────────────────────────
 TTS_FOUND = (
@@ -93,6 +94,9 @@ class ChildResponseNode(Node):
         self.declare_parameter('map_frame',          'map')
         self.declare_parameter('follow_check_sec',    20.0)  # 팔로우 확인 주기
         self.declare_parameter('follow_max_dist',      2.5)  # 이 거리 이상이면 대기
+        self.declare_parameter('approach_standoff_m',  1.2)
+        self.declare_parameter('approach_timeout_sec', 90.0)
+        self.declare_parameter('customer_arrival_radius_m', 0.3)
 
         self.cs_x      = self.get_parameter('customer_service_x').value
         self.cs_y      = self.get_parameter('customer_service_y').value
@@ -100,6 +104,13 @@ class ChildResponseNode(Node):
         self.map_frame = self.get_parameter('map_frame').value
         self.check_sec = self.get_parameter('follow_check_sec').value
         self.max_dist  = self.get_parameter('follow_max_dist').value
+        self.standoff  = float(self.get_parameter('approach_standoff_m').value)
+        self.approach_timeout = float(
+            self.get_parameter('approach_timeout_sec').value
+        )
+        self.customer_arrival_radius = float(
+            self.get_parameter('customer_arrival_radius_m').value
+        )
 
         self.tf_buffer   = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
@@ -121,6 +132,7 @@ class ChildResponseNode(Node):
         self._escort_status_pub   = self.create_publisher(String, '/escort_status',   10)
         self._escorting_child_pub = self.create_publisher(String, '/escorting_child', 10)
         self._escort_state_pub    = self.create_publisher(String, '/escort_state',    10)
+        self._completed_child_pub = self.create_publisher(String, '/completed_child', 10)
 
         self.create_subscription(String,      '/child_alert',         self._alert_cb,   10)
         self.create_subscription(Odometry,    '/odom',                self._odom_cb,    10)
@@ -185,14 +197,26 @@ class ChildResponseNode(Node):
         self.get_logger().info('=== 에스코트 시나리오 시작 ===')
         time.sleep(1.5)   # patrol_node cancel_goal_async 처리 대기
 
-        # STEP 1: 가장 가까운 child_X 모델 선택 + 팔로우 즉시 시작
+        # STEP 1: 경보 좌표 또는 Gazebo 모델 위치로 어린이에게 먼저 접근
         self._set_escort_state(EscortState.APPROACH)
         with self._mpos_lock:
             mpos = dict(self._mpos)
-        with self._rx_lock:
-            rx, ry = self._rx, self._ry
+        approach_xy = self._approach_target(target, mpos)
+        if approach_xy is not None:
+            ax, ay = approach_xy
+            self.get_logger().info(f'[1/4] 어린이 위치 접근 ({ax:.1f}, {ay:.1f})')
+            self._navigate_to(ax, ay, '어린이 발견 위치',
+                              timeout=self.approach_timeout)
+        else:
+            self.get_logger().warn('어린이 접근 좌표 계산 실패 — 안내 단계로 진행')
 
-        self._escort_model = self._nearest_child((rx, ry), mpos)
+        with self._mpos_lock:
+            mpos = dict(self._mpos)
+        ref_xy = approach_xy
+        if ref_xy is None:
+            ref_xy = self._robot_map_xy()
+
+        self._escort_model = self._nearest_child(ref_xy, mpos) if ref_xy else None
 
         if self._escort_model:
             self.get_logger().info(f'에스코트 모델: {self._escort_model}')
@@ -204,26 +228,33 @@ class ChildResponseNode(Node):
             self.get_logger().warn('child_X 모델을 찾지 못함 — 팔로우 없이 진행')
 
         # STEP 2: 어린이 발견 TTS
-        self.get_logger().info('[1/3] 어린이 발견 인사')
+        self.get_logger().info('[2/4] 어린이 발견 인사')
         self._speak(TTS_FOUND)
         time.sleep(1.0)
 
         # STEP 3: 고객센터로 이동 (팔로우 확인 포함)
         self._set_escort_state(EscortState.ESCORT)
-        self.get_logger().info(f'[2/3] 고객센터로 이동 ({self.cs_x:.1f}, {self.cs_y:.1f})')
+        self.get_logger().info(f'[3/4] 고객센터로 이동 ({self.cs_x:.1f}, {self.cs_y:.1f})')
         self._speak(TTS_WALKING)
 
         # 팔로우 확인 타이머 시작
         threading.Thread(target=self._follow_check_loop, daemon=True).start()
 
-        ok = self._navigate_to(self.cs_x, self.cs_y, '고객센터', timeout=300.0)
+        ok = self._navigate_to(
+            self.cs_x,
+            self.cs_y,
+            '고객센터',
+            timeout=300.0,
+            arrival_radius=self.customer_arrival_radius,
+        )
 
         # STEP 5: 도착 → 센터 직원에게 인계 후 에스코트 종료
         if ok:
             self._set_escort_state(EscortState.ARRIVED)
-            self.get_logger().info('[3/3] 고객센터 도착 — 직원 인계 후 종료')
+            self.get_logger().info('[4/4] 고객센터 도착 — 직원 인계 후 종료')
             self._speak(TTS_ARRIVED)
             time.sleep(3.0)   # TTS 끝날 때까지 잠깐 대기
+            self._mark_child_completed()
         else:
             self.get_logger().error('고객센터 이동 실패')
             self._speak(
@@ -243,6 +274,16 @@ class ChildResponseNode(Node):
         self._escorting_child_pub.publish(clear)
         self._pub_escort('idle')
         self._set_escort_state(EscortState.PATROL)
+
+    def _mark_child_completed(self):
+        if not self._escort_model:
+            return
+        msg = String()
+        msg.data = self._escort_model
+        self._completed_child_pub.publish(msg)
+        self.get_logger().info(
+            f'인솔 완료 처리: {self._escort_model} 재감지/재이동 대상에서 제외'
+        )
 
     # ── child_X 모델이 로봇 뒤를 따라오도록 ──────────────────────────────
     def _follow_loop(self, model_name: str):
@@ -324,8 +365,93 @@ class ChildResponseNode(Node):
                 best_d, best = d, name
         return best if best_d < 15.0 else None
 
+    def _approach_target(self, alert_child: dict, mpos: dict):
+        """Nav2 목표로 쓸 어린이 근처 좌표를 계산한다."""
+        robot_xy = self._robot_map_xy()
+        nearest_model = self._nearest_child(robot_xy, mpos) if robot_xy else None
+        if nearest_model and nearest_model in mpos:
+            return self._standoff_goal(mpos[nearest_model])
+
+        alert_xy = self._alert_pos_to_map(alert_child.get('pos3d'))
+        nearest_model = self._nearest_child(alert_xy, mpos) if alert_xy else None
+        if nearest_model and nearest_model in mpos:
+            return self._standoff_goal(mpos[nearest_model])
+        if alert_xy is not None:
+            return self._standoff_goal(alert_xy)
+        return None
+
+    def _alert_pos_to_map(self, pos3d):
+        if not pos3d or len(pos3d) < 3:
+            return None
+
+        tf_xy = self._cam_to_map(pos3d)
+        if tf_xy is not None:
+            return tf_xy
+
+        lateral = float(pos3d[0])
+        forward = float(pos3d[2])
+        if forward <= 0.0:
+            return None
+
+        pose = self._robot_map_pose()
+        if pose is None:
+            with self._rx_lock:
+                pose = (self._rx, self._ry, self._ryaw)
+        rx, ry, ryaw = pose
+
+        cos_y = math.cos(ryaw)
+        sin_y = math.sin(ryaw)
+        cam_x = rx + 0.1 * cos_y
+        cam_y = ry + 0.1 * sin_y
+
+        x = cam_x + forward * cos_y + lateral * sin_y
+        y = cam_y + forward * sin_y - lateral * cos_y
+        return x, y
+
+    def _standoff_goal(self, child_xy):
+        robot_xy = self._robot_map_xy()
+        if robot_xy is None:
+            with self._rx_lock:
+                robot_xy = (self._rx, self._ry)
+        rx, ry = robot_xy
+
+        dx = child_xy[0] - rx
+        dy = child_xy[1] - ry
+        dist = math.hypot(dx, dy)
+        if dist <= self.standoff:
+            return rx, ry
+
+        scale = max(0.0, (dist - self.standoff) / dist)
+        return rx + dx * scale, ry + dy * scale
+
+    def _robot_map_xy(self):
+        pose = self._robot_map_pose()
+        if pose is None:
+            return None
+        return pose[0], pose[1]
+
+    def _robot_map_pose(self):
+        try:
+            tf = self.tf_buffer.lookup_transform(
+                self.map_frame,
+                'base_footprint',
+                rclpy.time.Time(),
+                timeout=Duration(seconds=0.2),
+            )
+            q = tf.transform.rotation
+            siny = 2.0 * (q.w * q.z + q.x * q.y)
+            cosy = 1.0 - 2.0 * (q.y * q.y + q.z * q.z)
+            return (
+                tf.transform.translation.x,
+                tf.transform.translation.y,
+                math.atan2(siny, cosy),
+            )
+        except Exception:
+            return None
+
     # ── Nav2 이동 ─────────────────────────────────────────────────────────
-    def _navigate_to(self, x, y, label='', timeout=120.0, yaw=0.0) -> bool:
+    def _navigate_to(self, x, y, label='', timeout=120.0, yaw=0.0,
+                     arrival_radius=None) -> bool:
         gp = PoseStamped()
         gp.header.frame_id    = self.map_frame
         gp.header.stamp       = self.get_clock().now().to_msg()
@@ -359,21 +485,64 @@ class ChildResponseNode(Node):
         while not rfut.done() and time.monotonic() < end:
             if not self._navigating:
                 break
+            if arrival_radius is not None and self._distance_to(x, y) <= arrival_radius:
+                self.get_logger().info(
+                    f'Nav2 근접 도착 처리: {label} '
+                    f'({self._distance_to(x, y):.2f}m <= {arrival_radius:.2f}m)'
+                )
+                gh.cancel_goal_async()
+                return True
             time.sleep(0.1)
 
         if not rfut.done():
+            if arrival_radius is not None and self._distance_to(x, y) <= arrival_radius:
+                self.get_logger().info(
+                    f'Nav2 타임아웃 후 근접 도착 처리: {label} '
+                    f'({self._distance_to(x, y):.2f}m <= {arrival_radius:.2f}m)'
+                )
+                gh.cancel_goal_async()
+                return True
             self.get_logger().warn(f'Nav2 타임아웃: {label}')
+            return False
+
+        result = rfut.result()
+        if result.status != GoalStatus.STATUS_SUCCEEDED:
+            if arrival_radius is not None and self._distance_to(x, y) <= arrival_radius:
+                self.get_logger().info(
+                    f'Nav2 상태 {result.status}지만 근접 도착 처리: {label} '
+                    f'({self._distance_to(x, y):.2f}m <= {arrival_radius:.2f}m)'
+                )
+                return True
+            self.get_logger().warn(f'Nav2 실패 상태={result.status}: {label}')
             return False
 
         self.get_logger().info(f'Nav2 완료: {label}')
         return True
+
+    def _distance_to(self, x, y) -> float:
+        try:
+            tf = self.tf_buffer.lookup_transform(
+                self.map_frame,
+                'base_footprint',
+                rclpy.time.Time(),
+                timeout=Duration(seconds=0.2),
+            )
+            rx = tf.transform.translation.x
+            ry = tf.transform.translation.y
+            return math.hypot(x - rx, y - ry)
+        except Exception:
+            pass
+
+        with self._rx_lock:
+            rx, ry = self._rx, self._ry
+        return math.hypot(x - rx, y - ry)
 
     # ── TF2: 카메라 → map ────────────────────────────────────────────────
     def _cam_to_map(self, pos3d):
         try:
             pt = PointStamped()
             pt.header.frame_id = self.cam_frame
-            pt.header.stamp    = self.get_clock().now().to_msg()
+            pt.header.stamp    = rclpy.time.Time().to_msg()
             pt.point.x = float(pos3d[0])
             pt.point.y = float(pos3d[1])
             pt.point.z = float(pos3d[2])
@@ -411,7 +580,8 @@ def main(args=None):
         pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == '__main__':

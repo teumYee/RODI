@@ -97,6 +97,7 @@ class ImageOverlayNode(Node):
 
         # 모델 위치 캐시 {모델명: (wx, wy, wz, yaw)}
         self._model_poses: dict[str, tuple] = {}
+        self._completed_children: set[str] = set()
         # 로봇 pose
         self._robot_x   = 0.0
         self._robot_y   = 0.0
@@ -113,6 +114,8 @@ class ImageOverlayNode(Node):
                                  self._info_cb,        10)
         self.create_subscription(ModelStates, '/gazebo/model_states',
                                  self._model_states_cb, 10)
+        self.create_subscription(String, '/completed_child',
+                                 self._completed_child_cb, 10)
 
         # Publisher
         self.pub = self.create_publisher(Image, '/camera/overlay/image_raw', 10)
@@ -123,6 +126,13 @@ class ImageOverlayNode(Node):
             f'거리 {self.min_d}~{self.max_d}m | '
             f'모델 {len(self._overlays)}종 PNG 로드됨'
         )
+
+    def _completed_child_cb(self, msg: String):
+        name = msg.data.strip()
+        if not name:
+            return
+        self._completed_children.add(name)
+        self.get_logger().info(f'완료된 아이 오버레이 제외: {name}')
 
     # ── PNG 로드 ──────────────────────────────────────────────────────────
     def _load_overlays(self) -> dict[str, np.ndarray]:
@@ -273,6 +283,8 @@ class ImageOverlayNode(Node):
         )
 
         for model_name, (wx, wy, wz, _) in sorted_models:
+            if model_name in self._completed_children:
+                continue
             if model_name not in self._overlays:
                 continue
 
@@ -353,7 +365,8 @@ def main(args=None):
         pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == '__main__':

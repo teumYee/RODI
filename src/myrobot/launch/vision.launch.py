@@ -1,3 +1,5 @@
+import os
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
@@ -5,13 +7,17 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    patrol_yaml = os.path.join(
+        get_package_share_directory('myrobot'), 'config', 'patrol_waypoints.yaml'
+    )
+
     alert_hold = LaunchConfiguration('alert_hold_sec', default='5.0')
     wander_prob = LaunchConfiguration('alert_wander_prob', default='0.25')
     rgb_topic = LaunchConfiguration('rgb_topic', default='/camera/overlay/image_raw')
-    depth_topic = LaunchConfiguration('depth_topic', default='/camera/depth_camera/depth/image_raw')
+    depth_topic = LaunchConfiguration('depth_topic', default='/camera/depth/image_raw')
     depth_info_topic = LaunchConfiguration(
         'depth_info_topic',
-        default='/camera/depth_camera/depth/camera_info'
+        default='/camera/depth/camera_info'
     )
     classification_mode = LaunchConfiguration('classification_mode', default='depth')
 
@@ -62,6 +68,14 @@ def generate_launch_description():
         emulate_tty=True,
     )
 
+    tts_speaker = Node(
+        package='myrobot_vision',
+        executable='tts_speaker',
+        name='tts_speaker',
+        output='screen',
+        emulate_tty=True,
+    )
+
     image_overlay = Node(
         package='myrobot_vision',
         executable='image_overlay',
@@ -77,6 +91,9 @@ def generate_launch_description():
         name='patrol_node',
         output='screen',
         emulate_tty=True,
+        parameters=[patrol_yaml, {
+            'auto_waypoints': False,
+        }],
     )
 
     return LaunchDescription([
@@ -87,10 +104,10 @@ def generate_launch_description():
         DeclareLaunchArgument('rgb_topic', default_value='/camera/overlay/image_raw',
                               description='child_detector RGB 입력 토픽'),
         DeclareLaunchArgument('depth_topic',
-                              default_value='/camera/depth_camera/depth/image_raw',
+                              default_value='/camera/depth/image_raw',
                               description='child_detector Depth 입력 토픽(32FC1)'),
         DeclareLaunchArgument('depth_info_topic',
-                              default_value='/camera/depth_camera/depth/camera_info',
+                              default_value='/camera/depth/camera_info',
                               description='child_detector Depth CameraInfo 토픽'),
         DeclareLaunchArgument('classification_mode', default_value='depth',
                               description='어린이/성인 분류 방식: bbox 또는 depth'),
@@ -99,5 +116,6 @@ def generate_launch_description():
         guardian_logic,
         model_mover,
         child_response,
+        tts_speaker,
         patrol,
     ])

@@ -72,25 +72,16 @@ WANDER_ANCHORS = [
 ]
 
 DEMO_POSITIONS = {
-    # 미아 시나리오: child_1 단독, 보호자는 마트 반대편 (~9m)
-    'child_1':       (5.0,   2.5),
-    'adult_guard_1': (14.0,  2.0),
+    # 영상용 미아 시나리오: 로봇 시작점 정면에 child_1을 고정 배치.
+    # 로봇 시작 pose=(8.5, 0.0, yaw=+Y)이므로 y=1.8이 카메라 중앙이다.
+    'child_1':       (8.5,  1.8),
+    'adult_guard_1': (12.5, 5.2),
 
-    # Pair 2 — 마트 좌상단 구역 (child_1과 ~7m)
-    'child_2':       (1.5,   4.5),
-    'adult_guard_2': (2.3,   4.5),
-
-    # Pair 3 — 마트 우하단 구역 (child_1과 ~6.2m)
-    'child_3':       (12.0, -2.0),
-    'adult_guard_3': (12.8, -2.0),
-
-    # Pair 4 — 마트 좌하단 구역 (child_1과 ~8.5m)
-    'child_4':       (2.0,  -2.5),
-    'adult_guard_4': (2.8,  -2.5),
-
-    # 솔로 어른들 — 구석구석 (child_1 3m 초과 거리 유지)
-    'adult_solo_1':  (4.5,   4.0),
-    'adult_solo_2':  (11.5,  0.0),
+    # 배경 군중은 카메라 정면에서 빼서 첫 화면 감지를 child_1에 집중시킨다.
+    'child_2':       (5.8, -3.2),
+    'adult_guard_2': (6.4, -3.2),
+    'child_3':       (11.0, -3.4),
+    'adult_guard_3': (11.6, -3.4),
 }
 
 
@@ -148,8 +139,10 @@ class ModelMoverNode(Node):
         }
         self._wandering = {name: False for name in ALL_MODELS}
         self._escorted  = ''   # 에스코트 중인 child 모델명 (이동 금지)
+        self._completed_children: set[str] = set()
 
         self.create_subscription(String, '/escorting_child', self._escort_cb, 10)
+        self.create_subscription(String, '/completed_child', self._completed_child_cb, 10)
 
         self.cli = self.create_client(SetEntityState, '/gazebo/set_entity_state')
         self._service_connected = False
@@ -171,6 +164,13 @@ class ModelMoverNode(Node):
     # ── /escorting_child 수신 ─────────────────────────────────────────────
     def _escort_cb(self, msg: String):
         self._escorted = msg.data   # 빈 문자열이면 에스코트 없음
+
+    def _completed_child_cb(self, msg: String):
+        name = msg.data.strip()
+        if not name:
+            return
+        self._completed_children.add(name)
+        self.get_logger().info(f'완료된 아이 이동 제외: {name}')
 
     # ── 전체 이동 루틴 ────────────────────────────────────────────────────
     def _move_all(self):
@@ -194,8 +194,8 @@ class ModelMoverNode(Node):
 
         for child_name, adult_name in PAIRS:
             cx, cy = self._pos[child_name]
-            # 에스코트 중인 child는 model_mover가 건드리지 않음
-            if child_name == escorted:
+            # 에스코트 중이거나 인솔 완료된 child는 model_mover가 건드리지 않음
+            if child_name == escorted or child_name in self._completed_children:
                 reserved.append(self._pos[child_name])
                 continue
 
@@ -387,7 +387,8 @@ def main(args=None):
         pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == '__main__':

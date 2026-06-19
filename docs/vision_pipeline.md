@@ -32,8 +32,8 @@ Node: `child_detector`
 Inputs:
 
 - RGB image: configurable by `rgb_topic`
-- Depth image: `/camera/depth_camera/depth/image_raw`
-- Depth camera info: `/camera/depth_camera/depth/camera_info`
+- Depth image: `/camera/depth/image_raw`
+- Depth camera info: `/camera/depth/camera_info`
 
 Output:
 
@@ -137,8 +137,8 @@ The launch path currently relies on `child_response` for scenario-specific guida
 Use these during integration:
 
 ```bash
-ros2 topic echo /camera/depth_camera/depth/camera_info --once
-ros2 topic hz /camera/depth_camera/depth/image_raw
+ros2 topic echo /camera/depth/camera_info --once
+ros2 topic hz /camera/depth/image_raw
 ros2 topic hz /camera/overlay/image_raw
 ros2 topic echo /detected_persons
 ros2 topic echo /child_alert
