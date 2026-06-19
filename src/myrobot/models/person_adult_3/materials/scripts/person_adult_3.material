@@ -1,0 +1,15 @@
+material PersonAdult3/Diffuse
+{
+  technique
+  {
+    pass
+    {
+      lighting off
+      texture_unit
+      {
+        texture adult3_texture.png
+        filtering trilinear
+      }
+    }
+  }
+}

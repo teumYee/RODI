@@ -1,0 +1,55 @@
+#!/bin/bash
+# RODI 전체 빌드 + 텍스처 생성 스크립트
+set -e
+cd "$(dirname "$0")"
+
+echo "========================================"
+echo "  [1/4] 사람 텍스처 PNG 생성 (7종)"
+echo "========================================"
+python3 src/myrobot/scripts/generate_person_textures.py
+
+echo ""
+echo "========================================"
+echo "  [2/4] GAZEBO_MODEL_PATH 설정"
+echo "========================================"
+export GAZEBO_MODEL_PATH="$(pwd)/src/myrobot/models:${GAZEBO_MODEL_PATH}"
+echo "GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}"
+
+echo ""
+echo "========================================"
+echo "  [3/4] colcon 빌드"
+echo "========================================"
+source /opt/ros/humble/setup.bash
+colcon build --symlink-install
+
+echo ""
+echo "========================================"
+echo "  [4/4] 빌드 완료!"
+echo ""
+echo "  ▶ 실행 방법 (터미널 3개 필요)"
+echo ""
+echo "  # 공통: 각 터미널에서 먼저 실행"
+echo "  source ~/RODI/install/setup.bash"
+echo "  export GAZEBO_MODEL_PATH=~/RODI/src/myrobot/models:\$GAZEBO_MODEL_PATH"
+echo ""
+echo "  # 터미널 1: Gazebo 시뮬레이션"
+echo "  ros2 launch myrobot my_world.launch.py"
+echo ""
+echo "  # 터미널 2: Nav2 + RViz"
+echo "  ros2 launch myrobot nav2.launch.py"
+echo ""
+echo "  # 터미널 3: 비전 파이프라인 (테스트 시 alert_hold_sec=10)"
+echo "  ros2 launch myrobot vision.launch.py alert_hold_sec:=10.0"
+echo ""
+echo "  ▶ 토픽 흐름:"
+echo "  /myrobot/camera/image_raw"
+echo "    → [image_overlay] → /camera/overlay/image_raw"
+echo "    → [child_detector/YOLO] → /detected_persons"
+echo "    → [guardian_logic] → /child_alert"
+echo "    → [tts_speaker] TTS 안내"
+echo "    → [child_response] Nav2 로봇 이동"
+echo ""
+echo "  ▶ 오버레이 비활성화(raw 카메라 사용):"
+echo "  ros2 launch myrobot vision.launch.py \\"
+echo "    + child_detector 파라미터: rgb_topic:=/myrobot/camera/image_raw"
+echo "========================================"

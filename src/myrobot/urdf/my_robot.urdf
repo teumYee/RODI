@@ -133,7 +133,7 @@
       <max_wheel_acceleration>1.0</max_wheel_acceleration>
       <command_topic>cmd_vel</command_topic>
       <publish_odom>true</publish_odom>
-      <publish_odom_tf>false</publish_odom_tf> 
+      <publish_odom_tf>true</publish_odom_tf>
       <publish_wheel_tf>false</publish_wheel_tf>
       <odometry_topic>odom</odometry_topic>
       <odometry_frame>odom</odometry_frame>
@@ -163,7 +163,8 @@
       </ray>
       <plugin name="my_robot_laserscan" filename="libgazebo_ros_ray_sensor.so">
         <ros>
-          <remapping>~/out:=scan</remapping>
+          <namespace>/</namespace>
+          <remapping>~/out:=/scan</remapping>
         </ros>
         <output_type>sensor_msgs/LaserScan</output_type>
         <frame_name>base_scan</frame_name>
@@ -177,6 +178,13 @@
       </geometry>
       <material name="blue"/>
     </visual>
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+    </inertial>
+    <collision>
+      <geometry><box size="0.01 0.01 0.01"/></geometry>
+    </collision>
   </link>
 
   <joint name="camera_joint" type="fixed">
@@ -185,11 +193,12 @@
     <origin xyz="0.1 0.0 0.2" rpy="0 0 0"/> 
   </joint>
 
- <gazebo reference="camera_link">
+  <gazebo reference="camera_link">
     <material>Gazebo/Blue</material>
     <sensor type="camera" name="robot_camera">
-      <update_rate>30.0</update_rate>
-      <camera name="head">
+      <update_rate>30</update_rate>
+      <visualize>false</visualize>
+      <camera>
         <horizontal_fov>1.3962634</horizontal_fov>
         <image>
           <width>640</width>
@@ -202,12 +211,62 @@
         </clip>
       </camera>
       <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>0.0</updateRate>
-        <cameraName>myrobot/camera</cameraName>
-        <imageTopicName>image_raw</imageTopicName>
-        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>camera_link</frameName>
+        <ros>
+          <namespace>myrobot</namespace>
+          <remapping>robot_camera/image_raw:=camera/image_raw</remapping>
+          <remapping>robot_camera/camera_info:=camera/camera_info</remapping>
+        </ros>
+        <frame_name>camera_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <link name="depth_camera_link">
+    <visual>
+      <geometry><box size="0.04 0.04 0.04"/></geometry>
+    </visual>
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+    </inertial>
+    <collision>
+      <geometry><box size="0.01 0.01 0.01"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="depth_camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="depth_camera_link"/>
+    <origin xyz="0.1 0.0 0.2" rpy="0 0 0"/>
+  </joint>
+
+  <gazebo reference="depth_camera_link">
+    <sensor type="depth" name="depth_camera">
+      <update_rate>10</update_rate>
+      <visualize>false</visualize>
+      <camera>
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <depth_camera></depth_camera>
+        <clip>
+          <near>0.05</near>
+          <far>10.0</far>
+        </clip>
+      </camera>
+      <plugin name="depth_camera_controller" filename="libgazebo_ros_camera.so">
+        <ros>
+          <namespace>camera</namespace>
+          <remapping>depth_camera/image_raw:=depth/image_raw</remapping>
+          <remapping>depth_camera/camera_info:=depth/camera_info</remapping>
+          <remapping>depth_camera/points:=depth/points</remapping>
+        </ros>
+        <frame_name>depth_camera_link</frame_name>
+        <min_depth>0.05</min_depth>
+        <max_depth>10.0</max_depth>
       </plugin>
     </sensor>
   </gazebo>

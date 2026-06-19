@@ -1,0 +1,15 @@
+material PersonSenior1/Diffuse
+{
+  technique
+  {
+    pass
+    {
+      lighting off
+      texture_unit
+      {
+        texture senior1_texture.png
+        filtering trilinear
+      }
+    }
+  }
+}
