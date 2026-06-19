@@ -27,7 +27,7 @@
 
 ---
 ## 데모 영상
-[![YouTube](https://img.shields.io/badge/YouTube-데모영상-red)](https://www.youtube.com/링크입력)
+[![YouTube](https://img.shields.io/badge/YouTube-데모영상-red)](https://www.youtube.com/watch?v=j4l8dS9DEfE)
 
 > **📢 양해 말씀드립니다**
 > 발표 영상 녹화 당시 팀원(양시은) 컴퓨터 기기 문제로 인해 화면 내 음성 녹음이 정상적으로 이루어지지 않았습니다.
